@@ -734,18 +734,20 @@
     max-width: 100%;
   }
 
-  /* 10. お申し込みボタンをスマホで見やすく中央＆ちょうどいい幅に */
+/* 10. お申し込みボタンをスマホで見やすく中央＆ちょうどいい幅に */
   .cta-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 16px 24px;
-    font-size: 0.85rem;
-    line-height: 1.4;
-    width: 100%;
-    max-width: 290px;
+    padding: 16px 20px;       /* 左右の余白を少し狭めてスマホに収めやすく */
+    font-size: 0.82rem;       /* 文字の大きさを少しだけ小さく調整 */
+    line-height: 1.5;
+    width: 90%;               /* 画面幅に合わせて伸縮するようにパーセントに変更 */
+    max-width: 320px;
     margin: 0 auto;
-  }
+    white-space: normal;      /* ←重要：文字が枠を突き抜けないように自動折り返しする */
+    box-sizing: border-box;   /* 余白計算を整える */
+  }  
 }
 
   
