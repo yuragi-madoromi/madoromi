@@ -41,7 +41,6 @@
   a{color:inherit;}
   img{max-width:100%; display:block;}
 
-  /* ---------- moon phase scroll indicator ---------- */
   .phase-rail{
     position:fixed;
     right:14px;
@@ -88,7 +87,6 @@
   }
   @media (max-width:820px){ .phase-rail{display:none;} }
 
-  /* ---------- shared ---------- */
   section{ position:relative; }
   .wrap{ max-width:1040px; margin:0 auto; padding:0 24px; }
   .eyebrow{
@@ -119,7 +117,6 @@
     background:inherit;
   }
 
-  /* ---------- HERO ---------- */
   .hero{
     min-height:100vh;
     background:
@@ -228,7 +225,6 @@
     50%{ transform:scaleY(1); opacity:1; }
   }
 
-  /* ---------- EMPATHY ---------- */
   .empathy{
     background:var(--cream);
     padding:120px 0 100px;
@@ -249,7 +245,6 @@
   }
   .empathy .block{ margin-bottom:6px; }
 
-  /* ---------- ABOUT (dark) ---------- */
   .about{
     background:linear-gradient(160deg, var(--night-mid), var(--plum));
     color:var(--cream);
@@ -278,7 +273,6 @@
     color:var(--gold-soft);
   }
 
-  /* ---------- MENU / CARDS ---------- */
   .menu{
     background:var(--cream);
     padding:110px 0 100px;
@@ -288,7 +282,7 @@
   .menu-head h2{ font-size:clamp(1.5rem,3.6vw,2.2rem); color:var(--plum); }
   .card-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
     gap:28px;
   }
   @media (max-width:860px){ .card-grid{ grid-template-columns:1fr; max-width:420px; margin:0 auto;} }
@@ -384,7 +378,6 @@
     opacity:.85;
   }
 
-  /* ---------- CHECKLIST ---------- */
   .checklist{
     background:var(--cream-dim);
     padding:110px 24px;
@@ -427,7 +420,6 @@
   }
   .feather-wrap svg{ width:180px; height:auto; }
 
-  /* ---------- PROFILE ---------- */
   .profile{
     background:linear-gradient(160deg, var(--night-mid), var(--night-deep));
     color:var(--cream);
@@ -469,7 +461,6 @@
     border-radius:999px;
   }
 
-  /* ---------- CLOSING ---------- */
   .closing{
     background:
       radial-gradient(ellipse at 30% 20%, rgba(120,110,190,.3), transparent 55%),
@@ -537,13 +528,10 @@
   }
 /* ---------- スマホ専用調整 ---------- */
 @media (max-width: 768px) {
-  /* 1. 画面全体の右はみ出し（横スクロール）を防止 */
   html, body {
     overflow-x: hidden;
     width: 100%;
   }
-
-  /* 2. 全体の余白・文字調整 */
   body {
     font-size: 0.9rem;
     line-height: 1.8;
@@ -555,8 +543,6 @@
     margin: 28px auto;
     height: 36px;
   }
-
-  /* 3. HEROセクション */
   .hero {
     padding: 70px 20px 40px;
   }
@@ -581,11 +567,9 @@
     font-size: 0.9rem;
     max-width: 100%;
   }
-
-  /* 4. 共感（EMPATHY）& ABOUTセクション */
   .empathy {
     padding: 80px 0 60px;
-    text-align: center; /* 全体を中央寄せに */
+    text-align: center;
   }
   .empathy h2 {
     font-size: 1.4rem;
@@ -595,7 +579,7 @@
   .empathy p {
     font-size: 0.9rem;
     max-width: 100%;
-    text-align: center; /* 左寄せから中央寄せに変更 */
+    text-align: center;
     display: inline-block;
   }
   .about {
@@ -611,8 +595,6 @@
     font-size: 0.8rem;
     border-radius: 10px;
   }
-
-  /* 5. セッションメニュー（カード） */
   .menu {
     padding: 80px 0 70px;
   }
@@ -629,7 +611,7 @@
     margin: 0 auto;
   }
   .tarot-card {
-    height: 360px;
+    height: 390px;
   }
   .tarot-face {
     padding: 24px 20px;
@@ -641,19 +623,18 @@
   .tarot-face .desc {
     font-size: 0.8rem;
     margin-bottom: 14px;
+    line-height: 1.9;
   }
   .price-block .now {
     font-size: 1.5rem;
   }
-
-  /* 6. 「お伺いすること」エリアを中央に整列 */
   .checklist {
     padding: 80px 20px;
-    text-align: center; /* タイトルなどを中央寄せに */
+    text-align: center;
   }
   .checklist .wrap {
     display: flex;
-    flex-direction: column; /* 縦並びに変更 */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 30px;
@@ -665,17 +646,15 @@
   }
   .checklist ul {
     width: 100%;
-    max-width: 280px; /* スマホの画面のほどよい中央に収まる幅 */
+    max-width: 280px;
     margin: 0 auto;
-    text-align: left; /* リストの文字自体は左揃えにして読みやすく */
+    text-align: left;
     padding: 0;
   }
   .checklist li {
     padding: 12px 0;
     font-size: 0.9rem;
   }
-
-  /* 7. 右に寄っていた羽のエリアを画面の中央に配置 */
   .feather-wrap {
     display: flex;
     justify-content: center;
@@ -687,14 +666,12 @@
     width: 120px !important;
     height: auto !important;
   }
-
-  /* 8. プロフィール部分の横並びを解除して中央に整える */
   .profile {
     padding: 80px 20px;
   }
   .profile .wrap {
     display: flex;
-    flex-direction: column; /* 縦並びに変更 */
+    flex-direction: column;
     align-items: center;
     text-align: center;
     gap: 30px;
@@ -712,16 +689,14 @@
   }
   .profile p {
     font-size: 0.88rem;
-    text-align: left;
+    text-align: center;
     max-width: 100%;
   }
   .tags {
     justify-content: center;
   }
-
-  /* 9. クロージング */
   .closing {
-    padding: 90px 20px 60px;
+    padding: 90px 20px 80px;
   }
   .butterfly {
     width: 48px;
@@ -733,24 +708,20 @@
     margin-bottom: 30px;
     max-width: 100%;
   }
-
-/* 10. お申し込みボタンをスマホで見やすく中央＆ちょうどいい幅に */
   .cta-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 16px 20px;       /* 左右の余白を少し狭めてスマホに収めやすく */
-    font-size: 0.82rem;       /* 文字の大きさを少しだけ小さく調整 */
+    padding: 16px 20px;
+    font-size: 0.82rem;
     line-height: 1.5;
-    width: 90%;               /* 画面幅に合わせて伸縮するようにパーセントに変更 */
+    width: 90%;
     max-width: 320px;
     margin: 0 auto;
-    white-space: normal;      /* ←重要：文字が枠を突き抜けないように自動折り返しする */
-    box-sizing: border-box;   /* 余白計算を整える */
-  }  
+    white-space: normal;
+    box-sizing: border-box;
+  }
 }
-
-  
 </style>
 </head>
 <body>
@@ -761,7 +732,6 @@
   <div class="moon-icon" id="phaseMoon"></div>
 </div>
 
-<!-- HERO -->
 <section class="hero" id="hero">
   <div class="stars" id="starField"></div>
   <div class="hero-moon"></div>
@@ -777,7 +747,6 @@
   </div>
 </section>
 
-<!-- EMPATHY -->
 <section class="empathy">
   <div class="wrap">
     <p class="eyebrow en fade-up">to those becoming</p>
@@ -796,18 +765,16 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section class="about">
   <div class="wrap">
     <p class="eyebrow en fade-up">what this is</p>
     <h2 class="fade-up">カードと星の視点から<br>言葉にならない想いを見つめる</h2>
     <p class="fade-up">あなたの中にある傾向やテーマを<br>一緒に言葉にしていく参考として<br>出生情報を使わせていただきます。</p>
-    <p class="fade-up">※詳細な鑑定や</p>未来予測を行う場ではありません</p>
+    <p class="fade-up">※詳細な鑑定や未来予測を行う場ではありません</p>
     <div class="note fade-up">出生時間が不明な場合も対応しております。</div>
   </div>
 </section>
 
-<!-- MENU -->
 <section class="menu">
   <div class="wrap">
     <div class="menu-head">
@@ -815,78 +782,97 @@
       <h2 class="fade-up">ご案内</h2>
     </div>
 
- <div class="card-grid">
-  <!-- THE STAR (メッセージ) -->
-  <div class="tarot-card fade-up">
-    <div class="tarot-inner">
-      <div class="tarot-face front" style="transform: none; position: relative;">
-        <div>
-          <p class="kicker en" style="position: static !important; text-align: right; display: block; margin-bottom: 8px;">by message</p>
-          <h3>THE STAR</h3>
-          <p class="price">4,000 円</p>
-          <div style="font-size: 0.85rem; line-height: 1.8; color: #555; margin-top: 24px; text-align: left;">
-            <p style="margin-bottom: 12px;">想いをそっと解き放ち、カードと出生図から今のあなたに必要なメッセージを受け取る時間です。</p>
-            <p>言葉にまとまらなくても大丈夫。DMでのやり取りを通して、あなたのペースで丁寧に対話を進めていきます。</p>
+    <div class="card-grid">
+      <div class="tarot-card fade-up" tabindex="0">
+        <div class="tarot-inner">
+          <div class="tarot-face front">
+            <div>
+              <p class="kicker en">by message</p>
+              <h3>THE STAR</h3>
+              <p class="desc">想いをそっと解き放ち、カードと出生図から今のあなたに必要なメッセージを受け取る時間です。<br>言葉にまとまらなくても大丈夫。DMでのやり取りを通して、あなたのペースで丁寧に対話を進めていきます。</p>
+            </div>
+            <div class="price-block">
+              <div class="now">4,000<span>円</span></div>
+            </div>
+          </div>
+          <div class="tarot-face back">
+            <div>
+              <div class="star-mark en">THE<br>STAR</div>
+              <p class="flip-note en">tap again to flip back</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- MOON 60 -->
-  <div class="tarot-card fade-up">
-    <div class="tarot-inner">
-      <div class="tarot-face front" style="transform: none; position: relative;">
-        <div>
-          <p class="kicker en" style="position: static !important; text-align: right; display: block; margin-bottom: 8px;">60 minutes / zoom</p>
-          <h3>MOON 60</h3>
-          <p class="price">8,000 円</p>
-          <div style="font-size: 0.85rem; line-height: 1.8; color: #555; margin-top: 24px; text-align: left;">
-            <p style="margin-bottom: 12px;">今気になっていることをサクッと見てみる。</p>
-            <p>まずは気軽に体験してみたい時におすすめ。</p>
+      <div class="tarot-card fade-up" tabindex="0">
+        <div class="tarot-inner">
+          <div class="tarot-face front">
+            <div>
+              <p class="kicker en">60 minutes / zoom</p>
+              <h3>MOON 60</h3>
+              <p class="desc">今気になっていることをサクッと見てみる。<br>まずは気軽に体験してみたい時におすすめ。</p>
+            </div>
+            <div class="price-block">
+              <div class="duration">60分</div>
+              <div class="now">8,000<span>円</span></div>
+            </div>
+          </div>
+          <div class="tarot-face back">
+            <div>
+              <div class="star-mark en">MOON<br>60</div>
+              <p class="flip-note en">tap again to flip back</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- MOON 90 -->
-  <div class="tarot-card fade-up">
-    <div class="tarot-inner">
-      <div class="tarot-face front" style="transform: none; position: relative;">
-        <div>
-          <p class="kicker en" style="position: static !important; text-align: right; display: block; margin-bottom: 8px;">90 minutes / zoom</p>
-          <h3>MOON 90</h3>
-          <p class="price">12,000 円</p>
-          <div style="font-size: 0.85rem; line-height: 1.8; color: #555; margin-top: 24px; text-align: left;">
-            <p style="margin-bottom: 12px;">「なんとなくの違和感」やモヤモヤを一緒に探求</p>
-            <p>あなたの場所からリラックスして、焦らず丁寧にこれからの心地よい流れを見つけていきましょう。</p>
+      <div class="tarot-card fade-up" tabindex="0">
+        <div class="tarot-inner">
+          <div class="tarot-face front">
+            <div>
+              <p class="kicker en">90 minutes / zoom</p>
+              <h3>MOON 90</h3>
+              <p class="desc">「なんとなくの違和感」やモヤモヤを一緒に探求。<br>あなたの場所からリラックスして、焦らず丁寧にこれからの心地よい流れを見つけていきましょう。</p>
+            </div>
+            <div class="price-block">
+              <div class="duration">90分</div>
+              <div class="now">12,000<span>円</span></div>
+            </div>
+          </div>
+          <div class="tarot-face back">
+            <div>
+              <div class="star-mark en">MOON<br>90</div>
+              <p class="flip-note en">tap again to flip back</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- MOON 120 -->
-  <div class="tarot-card fade-up">
-    <div class="tarot-inner">
-      <div class="tarot-face front" style="transform: none; position: relative;">
-        <div>
-          <p class="kicker en" style="position: static !important; text-align: right; display: block; margin-bottom: 8px;">120 minutes / zoom</p>
-          <h3>MOON 120</h3>
-          <p class="price">14,000 円</p>
-          <div style="font-size: 0.85rem; line-height: 1.8; color: #555; margin-top: 24px; text-align: left;">
-            <p style="margin-bottom: 12px;">うまく説明できなくても大丈夫。たっぷりある時間を満喫。</p>
-            <p>あなたの内側にある声をそのまま外に出す心地よさを体感してみて。</p>
+      <div class="tarot-card fade-up" tabindex="0">
+        <div class="tarot-inner">
+          <div class="tarot-face front">
+            <div>
+              <p class="kicker en">120 minutes / zoom</p>
+              <h3>MOON 120</h3>
+              <p class="desc">うまく説明できなくても大丈夫。たっぷりある時間を満喫。<br>あなたの内側にある声をそのまま外に出す心地よさを体感してみて。</p>
+            </div>
+            <div class="price-block">
+              <div class="duration">120分</div>
+              <div class="now">14,000<span>円</span></div>
+            </div>
+          </div>
+          <div class="tarot-face back">
+            <div>
+              <div class="star-mark en">MOON<br>120</div>
+              <p class="flip-note en">tap again to flip back</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </section>
 
-<!-- CHECKLIST -->
 <section class="checklist">
   <div class="wrap">
     <div class="fade-up">
@@ -912,7 +898,6 @@
   </div>
 </section>
 
-<!-- PROFILE -->
 <section class="profile">
   <div class="wrap">
     <div class="profile-moon fade-up"></div>
@@ -929,7 +914,6 @@
   </div>
 </section>
 
-<!-- CLOSING -->
 <section class="closing">
   <svg class="butterfly" id="butterfly" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M50 20 C 30 -5, 0 5, 5 30 C 8 48, 30 45, 50 30" stroke="#d69aab" stroke-width="1.3"/>
@@ -939,15 +923,14 @@
     <line x1="50" y1="18" x2="50" y2="58" stroke="#f6f0e2" stroke-width="1.2"/>
   </svg>
   <p class="quote fade-up">あなたの中にある物語は、<br><span class="accent">すでに美しく</span>輝いています。<br>その光に、そっと<br>名前をつける時間を<br>ご一緒できたら嬉しいです。</p>
- <a href="https://www.instagram.com/nako4108?igsh=NzcyNH16Z3Q5NWto" class="cta-btn fade-up" target="_blank" rel="noopener">
-  お申し込みやご質問は<br>InstagramのDMから<br>お気軽にお声がけください
-</a>
+  <a href="https://www.instagram.com/nako4108?igsh=NzcyNH16Z3Q5NWto" class="cta-btn fade-up" target="_blank" rel="noopener">
+    お申し込みやご質問は<br>InstagramのDMから<br>お気軽にお声がけください
+  </a>
 </section>
 
 <footer class="en">— MADOROMI NO FUMOTO —</footer>
 
 <script>
-  // starfield
   const field = document.getElementById('starField');
   const n = 90;
   for(let i=0;i<n;i++){
@@ -959,7 +942,6 @@
     field.appendChild(s);
   }
 
-  // fade-up reveal
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting){ e.target.classList.add('in'); }
@@ -972,13 +954,11 @@
   }, {threshold:.4});
   bio.observe(document.getElementById('butterfly'));
 
-  // moon phase indicator driven by scroll progress
   const moonEl = document.getElementById('phaseMoon');
   function updatePhase(){
     const scrollTop = window.scrollY;
     const max = document.body.scrollHeight - window.innerHeight;
     const pct = Math.min(1, Math.max(0, scrollTop / max));
-    // shadow slides from fully covering (26px, new moon) to fully off (-26px, full moon)
     const shadowX = 26 - pct*52;
     moonEl.style.setProperty('--shadow-x', shadowX + 'px');
   }
