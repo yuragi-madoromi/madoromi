@@ -537,6 +537,72 @@
   @media (prefers-reduced-motion: reduce){
     *{ animation:none !important; transition:none !important; }
   }
+/* ---------- スマホ専用調整 ---------- */
+@media (max-width: 768px) {
+
+  /* 左右の余白を広げる */
+  .wrap{
+    padding: 0 32px;
+  }
+
+  /* 各セクションにゆとり */
+  .empathy,
+  .about,
+  .menu,
+  .checklist,
+  .profile,
+  .closing{
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+
+  /* Hero */
+  .hero{
+    padding: 120px 32px 80px;
+  }
+
+  .hero h1{
+    line-height: 1.7;
+  }
+
+  .hero .tagline{
+    line-height: 2;
+  }
+
+  /* 本文を読みやすく */
+  .empathy p,
+  .about p,
+  .profile p,
+  .closing .quote{
+    line-height: 2.2;
+  }
+
+  /* 区切り線 */
+  .divider{
+    margin: 44px auto;
+  }
+
+  /* カード内 */
+  .tarot-face{
+    padding: 38px 28px;
+  }
+
+  .tarot-face .desc{
+    line-height: 2;
+  }
+
+  /* チェックリスト */
+  .checklist li{
+    padding: 20px 0;
+  }
+
+  /* ボタン */
+  .cta-btn{
+    width: 100%;
+    justify-content: center;
+  }
+
+}
 </style>
 </head>
 <body>
