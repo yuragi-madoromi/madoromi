@@ -29,6 +29,7 @@
     overflow-x:hidden;
     line-height:1.9;
     letter-spacing:.02em;
+    word-break:keep-all;
   }
   h1,h2,h3,.serif{
     font-family:'Shippori Mincho', serif;
@@ -339,6 +340,14 @@
   .tarot-face.back .kicker{ color:var(--gold-soft); }
   .tarot-face h3{ font-size:1.2rem; margin-bottom:14px; color:var(--plum); }
   .tarot-face .desc{ font-size:.85rem; color:var(--ink); opacity:.8; margin-bottom:20px; }
+  .price-block .duration{
+    font-family:'Cormorant Garamond', serif;
+    letter-spacing:.2em;
+    font-size:.85rem;
+    color:var(--plum);
+    opacity:.7;
+    margin-bottom:2px;
+  }
   .price-block .was{
     text-decoration:line-through;
     font-size:.82rem;
@@ -386,4 +395,379 @@
     gap:60px;
     align-items:center;
   }
-  @media (max-width:820px){
+  @media (max-width:820px){ .checklist .wrap{ grid-template-columns:1fr; } }
+  .checklist h2{
+    font-size:clamp(1.3rem,3vw,1.8rem);
+    color:var(--plum);
+    margin-bottom:30px;
+  }
+  .checklist ul{ list-style:none; }
+  .checklist li{
+    display:flex;
+    gap:16px;
+    padding:16px 0;
+    border-bottom:1px solid rgba(70,54,89,.15);
+    font-size:.95rem;
+  }
+  .checklist li .num{
+    font-family:'Cormorant Garamond', serif;
+    color:var(--gold);
+    font-size:1.1rem;
+    flex:none;
+  }
+  .checklist .footnote{
+    margin-top:28px;
+    font-size:.8rem;
+    color:var(--plum);
+    opacity:.75;
+    line-height:1.8;
+  }
+  .feather-wrap{
+    display:flex; align-items:center; justify-content:center;
+  }
+  .feather-wrap svg{ width:180px; height:auto; }
+
+  /* ---------- PROFILE ---------- */
+  .profile{
+    background:linear-gradient(160deg, var(--night-mid), var(--night-deep));
+    color:var(--cream);
+    padding:120px 24px;
+  }
+  .profile .wrap{
+    display:grid;
+    grid-template-columns:.7fr 1.3fr;
+    gap:56px;
+    align-items:center;
+  }
+  @media (max-width:780px){ .profile .wrap{ grid-template-columns:1fr; text-align:center; } }
+  .profile-moon{
+    width:180px; height:180px;
+    border-radius:50%;
+    margin:0 auto;
+    background:radial-gradient(circle at 35% 30%, var(--gold-soft), var(--night-mid) 70%);
+    border:1px solid rgba(226,205,154,.5);
+    position:relative;
+  }
+  .profile-moon::after{
+    content:'nako';
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.5rem;
+    color:var(--night-deep);
+    letter-spacing:.05em;
+  }
+  .profile h2{ font-size:1.6rem; margin-bottom:8px; }
+  .profile .role-en{ color:var(--rose); margin-bottom:22px; display:block; }
+  .profile p{ color:var(--cream-dim); font-size:.95rem; margin-bottom:22px; max-width:34em; }
+  .tags{ display:flex; flex-wrap:wrap; gap:10px; }
+  @media (max-width:780px){ .tags{ justify-content:center; } }
+  .tags span{
+    border:1px solid var(--gold);
+    color:var(--gold-soft);
+    font-size:.75rem;
+    padding:7px 16px;
+    border-radius:999px;
+  }
+
+  /* ---------- CLOSING ---------- */
+  .closing{
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(120,110,190,.3), transparent 55%),
+      linear-gradient(180deg, var(--night-deep), #08091a);
+    color:var(--cream);
+    text-align:center;
+    padding:130px 24px 90px;
+    position:relative;
+    overflow:hidden;
+  }
+  .butterfly{
+    width:64px; height:64px;
+    margin:0 auto 30px;
+    opacity:0;
+    transform:scale(.6);
+    transition:opacity 1.2s ease, transform 1.2s ease;
+  }
+  .butterfly.in{ opacity:1; transform:scale(1); }
+  .closing .quote{
+    font-family:'Shippori Mincho', serif;
+    font-size:clamp(1.15rem,2.6vw,1.5rem);
+    line-height:2.1;
+    max-width:22em;
+    margin:0 auto 40px;
+    color:var(--cream-dim);
+    word-break:keep-all;
+    overflow-wrap:break-word;
+  }
+  .closing .quote .accent{ color:var(--gold-soft); }
+  .cta-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    background:linear-gradient(120deg, var(--rose-deep), var(--gold));
+    color:#fff;
+    padding:18px 42px;
+    border-radius:999px;
+    font-size:.95rem;
+    letter-spacing:.08em;
+    text-decoration:none;
+    box-shadow:0 10px 30px rgba(214,154,171,.3);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .cta-btn:hover{ transform:translateY(-3px); box-shadow:0 14px 36px rgba(214,154,171,.45); }
+  .closing .handle{
+    display:block;
+    margin-top:20px;
+    font-family:'Cormorant Garamond', serif;
+    letter-spacing:.2em;
+    color:var(--gold-soft);
+    font-size:.85rem;
+  }
+  footer{
+    text-align:center;
+    padding:34px 24px;
+    background:#08091a;
+    color:var(--gold-soft);
+    font-family:'Cormorant Garamond', serif;
+    letter-spacing:.25em;
+    font-size:.72rem;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="phase-rail" aria-hidden="true">
+  <span class="phase-label en">NEW → FULL</span>
+  <div class="track"></div>
+  <div class="moon-icon" id="phaseMoon"></div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="stars" id="starField"></div>
+  <div class="hero-moon"></div>
+  <h1>
+    <small class="en">nako's card session</small>
+    変容を楽しむ<br>カードセッション
+  </h1>
+  <p class="sub en">〜 まどろみの麓 〜</p>
+  <p class="tagline">変容の途中にいる、あなたへ。</p>
+  <div class="scroll-cue">
+    <span class="line"></span>
+    scroll
+  </div>
+</section>
+
+<!-- EMPATHY -->
+<section class="empathy">
+  <div class="wrap">
+    <p class="eyebrow en fade-up">to those becoming</p>
+    <h2 class="fade-up">人生には、<br>サナギのような<br>時間があります</h2>
+    <div class="block fade-up">
+      <p>これまでの生き方が、しっくりこなくなる。<br>理由のわからない違和感を、ふと感じる。</p>
+    </div>
+    <div class="divider"></div>
+    <div class="block fade-up">
+      <p>まだ次の形は見えていないけれど、<br>確かに何かが、変わり始めている。</p>
+    </div>
+    <div class="divider"></div>
+    <div class="block fade-up">
+      <p>この場は、そんな変容の途中にいる方のための、<br>静かな対話の時間です。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="wrap">
+    <p class="eyebrow en fade-up">what this is</p>
+    <h2 class="fade-up">カードと星の視点から、<br>言葉にならない想いを<br>見つめる</h2>
+    <p class="fade-up">詳細な鑑定や<br>未来予測を行う場では<br>ありません。</p>
+    <p class="fade-up">あなたの中にある傾向やテーマを、<br>ふたりで丁寧に言葉にしていく——<br>そのための参考として、<br>カードと出生情報を使わせていただきます。</p>
+    <div class="note fade-up">出生時間が不明な場合も、お気軽にご相談ください。</div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu">
+  <div class="wrap">
+    <div class="menu-head">
+      <p class="eyebrow en fade-up">the sessions</p>
+      <h2 class="fade-up">ご案内</h2>
+    </div>
+    <div class="card-grid">
+
+      <div class="tarot-card fade-up" tabindex="0">
+        <div class="tarot-inner">
+          <div class="tarot-face front">
+            <div>
+              <p class="kicker en">by message</p>
+              <h3>カードからの<br>メッセージ(DM)</h3>
+              <p class="desc">気になっているテーマや<br>今の状況をお聞かせください。カードと出生情報を参考に、<br>今のあなたへのメッセージをお届けします。</p>
+            </div>
+            <div class="price-block">
+              <div class="now">4,000<span>円</span></div>
+            </div>
+          </div>
+          <div class="tarot-face back">
+            <div>
+              <div class="star-mark en">THE<br>STAR</div>
+              <p class="flip-note en">tap again to flip back</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tarot-card fade-up" tabindex="0">
+        <div class="tarot-inner">
+          <div class="tarot-face front">
+            <div>
+              <p class="kicker en">60 minutes / zoom</p>
+              <h3>星とカードの<br>対話セッション</h3>
+              <p class="desc">出生図とカードを参考に、<br>今のテーマや人生の流れを<br>一緒に見つめていきます。</p>
+            </div>
+            <div class="price-block">
+              <div class="duration">60分</div>
+              <div class="now">8,000<span>円</span></div>
+            </div>
+          </div>
+          <div class="tarot-face back">
+            <div>
+              <div class="star-mark en">MOON<br>60</div>
+              <p class="flip-note en">tap again to flip back</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tarot-card fade-up" tabindex="0">
+        <div class="tarot-inner">
+          <div class="tarot-face front">
+            <div>
+              <p class="kicker en">90 minutes / zoom</p>
+              <h3>星とカードの<br>対話セッション(じっくり)</h3>
+              <p class="desc">時間を気にせず、<br>より深くテーマを掘り下げたい方向けの<br>セッションです。</p>
+            </div>
+            <div class="price-block">
+              <div class="duration">90分</div>
+              <div class="now">12,000<span>円</span></div>
+            </div>
+          </div>
+          <div class="tarot-face back">
+            <div>
+              <div class="star-mark en">MOON<br>90</div>
+              <p class="flip-note en">tap again to flip back</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="checklist">
+  <div class="wrap">
+    <div class="fade-up">
+      <p class="eyebrow en" style="color:var(--rose-deep); margin-bottom:14px;">before you begin</p>
+      <h2>お申し込み時に<br>お伺いすること</h2>
+      <ul>
+        <li><span class="num en">01</span><span>生年月日</span></li>
+        <li><span class="num en">02</span><span>出生地</span></li>
+        <li><span class="num en">03</span><span>出生時間(わかる範囲で)</span></li>
+      </ul>
+      <p class="footnote">※ 詳細な鑑定や未来予測を行うものではなく、その方の傾向やテーマを理解し、より深く言葉を届けるための参考として活用しています。</p>
+    </div>
+    <div class="feather-wrap fade-up">
+      <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 250 C 95 190, 70 150, 40 100 C 30 80, 35 55, 55 35 C 90 0, 150 10, 170 45 C 190 80, 165 130, 130 155 C 105 175, 108 210, 100 250 Z"
+              stroke="#c9a668" stroke-width="1.4"/>
+        <path d="M100 240 C 98 190, 90 150, 75 110" stroke="#c9a668" stroke-width="1"/>
+        <path d="M95 200 L 60 190 M100 175 L 65 163 M108 150 L 78 136 M115 125 L 90 108 M122 100 L 100 82"
+              stroke="#c9a668" stroke-width=".8" opacity=".7"/>
+        <ellipse cx="100" cy="252" rx="6" ry="14" fill="#463659"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- PROFILE -->
+<section class="profile">
+  <div class="wrap">
+    <div class="profile-moon fade-up"></div>
+    <div class="fade-up">
+      <h2>nako <span class="en" style="font-size:.6em; color:var(--gold-soft);">profile</span></h2>
+      <span class="role-en en">reflexologist · reiki healer</span>
+      <p>ジブリ・心理学・マニアックな話が好き。友達以上家族未満の従姉妹のような距離感で、ふと思い出した時にいつでもそばに。</p>
+      <div class="tags">
+        <span>リフレクソロジスト</span>
+        <span>レイキヒーラー</span>
+        <span>場づくり</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <svg class="butterfly" id="butterfly" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 20 C 30 -5, 0 5, 5 30 C 8 48, 30 45, 50 30" stroke="#d69aab" stroke-width="1.3"/>
+    <path d="M50 20 C 70 -5, 100 5, 95 30 C 92 48, 70 45, 50 30" stroke="#c9a668" stroke-width="1.3"/>
+    <path d="M50 30 C 35 45, 15 55, 20 70 C 25 78, 40 70, 50 55" stroke="#d69aab" stroke-width="1"/>
+    <path d="M50 30 C 65 45, 85 55, 80 70 C 75 78, 60 70, 50 55" stroke="#c9a668" stroke-width="1"/>
+    <line x1="50" y1="18" x2="50" y2="58" stroke="#f6f0e2" stroke-width="1.2"/>
+  </svg>
+  <p class="quote fade-up">あなたの中にある物語は、<br><span class="accent">すでに美しく</span>輝いています。<br>その光に、そっと<br>名前をつける時間を<br>ご一緒できたら嬉しいです。</p>
+  <a href="https://www.instagram.com/nako4108?igsh=NzcyNHl6Z3Q5NWto" class="cta-btn fade-up" target="_blank" rel="noopener">Instagramでご縁をつなぐ</a>
+  <span class="handle en fade-up">@nako4108</span>
+</section>
+
+<footer class="en">— MADOROMI NO FUMOTO —</footer>
+
+<script>
+  // starfield
+  const field = document.getElementById('starField');
+  const n = 90;
+  for(let i=0;i<n;i++){
+    const s = document.createElement('span');
+    s.style.left = Math.random()*100 + '%';
+    s.style.top = Math.random()*100 + '%';
+    s.style.animationDelay = (Math.random()*4) + 's';
+    s.style.width = s.style.height = (Math.random()*1.6+1) + 'px';
+    field.appendChild(s);
+  }
+
+  // fade-up reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); }
+    });
+  }, {threshold:.2});
+  document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+
+  const bio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+  }, {threshold:.4});
+  bio.observe(document.getElementById('butterfly'));
+
+  // moon phase indicator driven by scroll progress
+  const moonEl = document.getElementById('phaseMoon');
+  function updatePhase(){
+    const scrollTop = window.scrollY;
+    const max = document.body.scrollHeight - window.innerHeight;
+    const pct = Math.min(1, Math.max(0, scrollTop / max));
+    // shadow slides from fully covering (26px, new moon) to fully off (-26px, full moon)
+    const shadowX = 26 - pct*52;
+    moonEl.style.setProperty('--shadow-x', shadowX + 'px');
+  }
+  window.addEventListener('scroll', updatePhase, {passive:true});
+  updatePhase();
+</script>
+</body>
+</html>
