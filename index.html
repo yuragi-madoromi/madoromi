@@ -88,7 +88,7 @@
   @media (max-width:820px){ .phase-rail{display:none;} }
 
   section{ position:relative; }
-  .wrap{ max-width:1040px; margin:0 auto; padding:0 24px; }
+  .wrap{ max-width:1200px; margin:0 auto; padding:0 24px; }
   .eyebrow{
     font-family:'Cormorant Garamond', serif;
     letter-spacing:.4em;
@@ -273,6 +273,7 @@
     color:var(--gold-soft);
   }
 
+  /* --- MENU SECTION (回転しないバージョンに修正) --- */
   .menu{
     background:var(--cream);
     padding:110px 0 100px;
@@ -280,102 +281,90 @@
   .menu-head{ text-align:center; margin-bottom:70px; }
   .menu-head .eyebrow{ color:var(--rose-deep); margin-bottom:16px; }
   .menu-head h2{ font-size:clamp(1.5rem,3.6vw,2.2rem); color:var(--plum); }
+  
   .card-grid{
     display:grid;
     grid-template-columns:repeat(4, 1fr);
-    gap:28px;
+    gap:20px;
+    max-width:1200px;
+    margin:0 auto;
   }
-  @media (max-width:860px){ .card-grid{ grid-template-columns:1fr; max-width:420px; margin:0 auto;} }
+  
   .tarot-card{
-    perspective:1400px;
-    height:460px;
-  }
-  .tarot-inner{
-    position:relative;
-    width:100%; height:100%;
-    transform-style:preserve-3d;
-    transition:transform .8s cubic-bezier(.2,.7,.3,1);
-  }
-  .tarot-card:hover .tarot-inner, .tarot-card:focus-within .tarot-inner{
-    transform:rotateY(180deg);
-  }
-  .tarot-face{
-    position:absolute; inset:0;
-    backface-visibility:hidden;
+    background:linear-gradient(170deg, #fff, var(--cream-dim));
+    border:1px solid rgba(201,166,104,.4);
     border-radius:18px;
-    padding:34px 24px;
+    padding:28px 16px 24px;
     display:flex;
     flex-direction:column;
     align-items:center;
-    text-align:center;
-  }
-  .tarot-face.front{
-    background:linear-gradient(170deg, #fff, var(--cream-dim));
-    border:1px solid rgba(201,166,104,.4);
-    color:var(--ink);
     justify-content:space-between;
+    text-align:center;
+    min-height:490px;
+    box-shadow:0 4px 15px rgba(70,54,89,.03);
+    transition:transform .3s ease, box-shadow .3s ease;
   }
-  .tarot-face.back{
-    background:
-      radial-gradient(circle at 50% 30%, rgba(226,205,154,.25), transparent 60%),
-      linear-gradient(170deg, var(--night-deep), var(--plum));
-    color:var(--cream);
-    transform:rotateY(180deg);
-    justify-content:center;
-    border:1px solid var(--gold);
+  /* PC用の上品な浮き上がりホバー効果 */
+  .tarot-card:hover, .tarot-card:focus-within{
+    transform:translateY(-6px);
+    box-shadow:0 12px 28px rgba(70,54,89,.08);
   }
-  .tarot-face .kicker{
+
+  .tarot-card .kicker{
     font-family:'Cormorant Garamond', serif;
     letter-spacing:.25em;
     font-size:.7rem;
     color:var(--rose-deep);
     margin-bottom:10px;
   }
-  .tarot-face.back .kicker{ color:var(--gold-soft); }
-  .tarot-face h3{ font-size:1.2rem; margin-bottom:14px; color:var(--plum); }
-  .tarot-face .desc{ font-size:.85rem; color:var(--ink); opacity:.8; margin-bottom:20px; }
-  .price-block .duration{
-    font-family:'Cormorant Garamond', serif;
-    letter-spacing:.2em;
-    font-size:.85rem;
+  
+  .tarot-card h3{ 
+    font-size:1.15rem; 
+    margin-bottom:14px; 
     color:var(--plum);
-    opacity:.7;
-    margin-bottom:2px;
+    line-height:1.45;
+    word-break:normal;
+    overflow-wrap:normal;
   }
-  .price-block .was{
-    text-decoration:line-through;
-    font-size:.82rem;
-    opacity:.5;
+  
+  .tarot-card .desc{ 
+    font-size:.85rem; 
+    color:var(--ink); 
+    opacity:.8; 
+    margin-bottom:20px; 
+    line-height:1.7;
+    text-align:left;
+    word-break:normal;
+    overflow-wrap:break-word;
+  }
+  
+  .price-block{
+    margin-top:auto;
+    padding-top:14px;
+    border-top:1px solid rgba(70, 54, 89, 0.1);
+    width:100%;
+    text-align:center;
+  }
+  .price-block .duration{
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    letter-spacing:.05em;
+    font-size:1.05rem;
+    font-weight:700;
+    color:var(--plum);
+    margin-bottom:4px;
   }
   .price-block .now{
     font-family:'Cormorant Garamond', serif;
-    font-size:1.7rem;
+    font-size:2rem;
     color:var(--rose-deep);
-    font-weight:600;
+    font-weight:700;
+    line-height:1.2;
   }
-  .price-block .now span{ font-size:.9rem; }
-  .tarot-face.back .star-mark{
-    font-family:'Cormorant Garamond', serif;
-    font-size:1.1rem;
-    letter-spacing:.3em;
-    color:var(--gold-soft);
-    border:1px solid var(--gold-soft);
-    border-radius:50%;
-    width:78px; height:78px;
-    display:flex; align-items:center; justify-content:center;
-    margin:0 auto 16px;
-  }
-  .tarot-face.back .flip-note{
-    font-size:.72rem;
-    color:var(--cream-dim);
-    opacity:.75;
-  }
-  .menu-note{
-    text-align:center;
-    margin-top:50px;
-    font-size:.85rem;
-    color:var(--plum);
-    opacity:.85;
+  .price-block .now span{ 
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    font-size:.95rem; 
+    font-weight:500;
+    margin-left:2px;
   }
 
   .checklist{
@@ -526,7 +515,21 @@
   @media (prefers-reduced-motion: reduce){
     *{ animation:none !important; transition:none !important; }
   }
-/* ---------- スマホ専用調整 ---------- */
+
+/* ---------- タブレット専用（画面幅1024px以下） ---------- */
+@media (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .tarot-card {
+    min-height: 460px;
+  }
+}
+
+/* ---------- スマホ専用調整（画面幅768px以下） ---------- */
 @media (max-width: 768px) {
   html, body {
     overflow-x: hidden;
@@ -604,30 +607,36 @@
   .menu-head h2 {
     font-size: 1.5rem;
   }
+  
+  /* スマホ時は綺麗に中央1列並び・左右余白を均等に保持 */
   .card-grid {
     grid-template-columns: 1fr;
     gap: 24px;
-    max-width: 320px;
+    max-width: 340px;
     margin: 0 auto;
   }
   .tarot-card {
-    height: 390px;
+    min-height: 420px;
   }
-  .tarot-face {
-    padding: 24px 20px;
+  .tarot-card:hover {
+    transform: none; /* スマホでの誤タップ時の挙動防止 */
   }
-  .tarot-face h3 {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-  }
-  .tarot-face .desc {
-    font-size: 0.8rem;
+  .tarot-card .desc {
+    font-size: 0.82rem;
     margin-bottom: 14px;
-    line-height: 1.9;
+    line-height: 1.8;
+    text-align: center;
+  }
+  .price-block .duration {
+    font-size: 1rem;
   }
   .price-block .now {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
+  .price-block .now span {
+    font-size: 0.88rem;
+  }
+  
   .checklist {
     padding: 80px 20px;
     text-align: center;
@@ -769,7 +778,7 @@
   <div class="wrap">
     <p class="eyebrow en fade-up">what this is</p>
     <h2 class="fade-up">カードと星の視点から<br>言葉にならない想いを見つめる</h2>
-    <p class="fade-up">あなたの中にある傾向やテーマを<br>一緒に言葉にしていく参考として<br>出生情報を使わせていただきます。</p>
+    <p class="fade-up">あなたの中にある傾向やテーマを一緒に言葉にしていく、あなただけの「心の地図」として、出生情報をそっと背景に置かせていただくイメージです。</p>
     <p class="fade-up">※詳細な鑑定や未来予測を行う場ではありません</p>
     <div class="note fade-up">出生時間が不明な場合も対応しております。</div>
   </div>
@@ -783,90 +792,55 @@
     </div>
 
     <div class="card-grid">
+      <!-- 1つ目のメニュー -->
       <div class="tarot-card fade-up" tabindex="0">
-        <div class="tarot-inner">
-          <div class="tarot-face front">
-            <div>
-              <p class="kicker en">by message</p>
-              <h3>カードからのメッセージ</h3>
-              <p class="desc">想いをそっと解き放ち、カードと出生図から今のあなたに必要なメッセージを受け取る時間です。<br>言葉にまとまらなくても大丈夫。DMでのやり取りを通して、あなたのペースで丁寧に対話を進めていきます。</p>
-            </div>
-            <div class="price-block">
-              <div class="now">4,000<span>円</span></div>
-            </div>
-          </div>
-          <div class="tarot-face back">
-            <div>
-              <div class="star-mark en">THE<br>STAR</div>
-              <p class="flip-note en">tap again to flip back</p>
-            </div>
-          </div>
+        <div>
+          <p class="kicker en">by message</p>
+          <h3>カードからの<br>メッセージ</h3>
+          <p class="desc">想いをそっと解き放ち、カードと出生図から今のあなたに必要なメッセージを受け取る時間です。言葉にまとまらなくても大丈夫。DMでのやり取りを通して、あなたのペースで丁寧に対話を進めていきます。</p>
+        </div>
+        <div class="price-block">
+          <div class="duration">DMテキスト対話</div>
+          <div class="now">4,000<span>円</span></div>
         </div>
       </div>
 
+      <!-- 2つ目のメニュー -->
       <div class="tarot-card fade-up" tabindex="0">
-        <div class="tarot-inner">
-          <div class="tarot-face front">
-            <div>
-              <p class="kicker en">60 minutes / zoom</p>
-              <h3>星とカードの対話セッション</h3>
-              <p class="desc">今気になっていることをサクッと見てみる。<br>まずは気軽に体験してみたい時におすすめ。</p>
-            </div>
-            <div class="price-block">
-              <div class="duration">60分</div>
-              <div class="now">8,000<span>円</span></div>
-            </div>
-          </div>
-          <div class="tarot-face back">
-            <div>
-              <div class="star-mark en">MOON<br>60</div>
-              <p class="flip-note en">tap again to flip back</p>
-            </div>
-          </div>
+        <div>
+          <p class="kicker en">60 minutes / zoom</p>
+          <h3>星とカードの<br>対話セッション</h3>
+          <p class="desc">今気になっていること1テーマについてや、気軽にお話を体験してみたい時に。</p>
+        </div>
+        <div class="price-block">
+          <div class="duration">60分</div>
+          <div class="now">8,000<span>円</span></div>
         </div>
       </div>
 
+      <!-- 3つ目のメニュー -->
       <div class="tarot-card fade-up" tabindex="0">
-        <div class="tarot-inner">
-          <div class="tarot-face front">
-            <div>
-              <p class="kicker en">90 minutes / zoom</p>
-              <h3>星とカードの対話セッション</h3>
-              <p class="desc">「なんとなくの違和感」やモヤモヤを一緒に探求。<br>あなたの場所からリラックスして、焦らず丁寧にこれからの心地よい流れを見つけていきましょう。</p>
-            </div>
-            <div class="price-block">
-              <div class="duration">90分</div>
-              <div class="now">12,000<span>円</span></div>
-            </div>
-          </div>
-          <div class="tarot-face back">
-            <div>
-              <div class="star-mark en">MOON<br>90</div>
-              <p class="flip-note en">tap again to flip back</p>
-            </div>
-          </div>
+        <div>
+          <p class="kicker en">90 minutes / zoom</p>
+          <h3>星とカードの<br>対話セッション</h3>
+          <p class="desc">「なんとなくの違和感」やモヤモヤの奥を探る。心地よい流れを見つけたい時に。</p>
+        </div>
+        <div class="price-block">
+          <div class="duration">90分</div>
+          <div class="now">12,000<span>円</span></div>
         </div>
       </div>
 
+      <!-- 4つ目のメニュー -->
       <div class="tarot-card fade-up" tabindex="0">
-        <div class="tarot-inner">
-          <div class="tarot-face front">
-            <div>
-              <p class="kicker en">120 minutes / zoom</p>
-              <h3>星とカードの対話セッション</h3>
-              <p class="desc">時間を気にせず、いくつかのテーマをじっくりと辿っていく時間です。<br>焦らず、あなたのペースで内側の声に深く耳を傾けたい時に。</p>
-            </div>
-            <div class="price-block">
-              <div class="duration">120分</div>
-              <div class="now">14,000<span>円</span></div>
-            </div>
-          </div>
-          <div class="tarot-face back">
-            <div>
-              <div class="star-mark en">MOON<br>120</div>
-              <p class="flip-note en">tap again to flip back</p>
-            </div>
-          </div>
+        <div>
+          <p class="kicker en">120 minutes / zoom</p>
+          <h3>星とカードの<br>対話セッション</h3>
+          <p class="desc">いくつかのテーマをじっくりと対話する。ゆったりあなたのペースで内側の声に深く耳を傾けたい時に。</p>
+        </div>
+        <div class="price-block">
+          <div class="duration">120分</div>
+          <div class="now">14,000<span>円</span></div>
         </div>
       </div>
     </div>
@@ -883,7 +857,7 @@
         <li><span class="num en">02</span><span>出生地</span></li>
         <li><span class="num en">03</span><span>出生時間(わかる範囲で)</span></li>
       </ul>
-      <p class="footnote">※ 詳細な鑑定や未来予測を行うものではなく、その方の傾向やテーマを理解し、より深く言葉を届けるための参考として活用しています。</p>
+      <p class="footnote">※詳細な鑑定や未来予測を行うものではありません。<br>傾向やテーマを理解し、より深く言葉を届けるための参考として活用。</p>
     </div>
     <div class="feather-wrap fade-up">
       <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -904,11 +878,13 @@
     <div class="fade-up">
       <h2>nako <span class="en" style="font-size:.6em; color:var(--gold-soft);">profile</span></h2>
       <span class="role-en en">reflexologist · reiki healer</span>
-      <p>ジブリ・心理学・マニアックな話が好き。友達以上家族未満の従姉妹のような距離感で、ふと思い出した時にいつでもそばに。</p>
+      <p>ジブリ・心理学・マニアックな話が好き。言葉にならないモヤモヤ、静かな沈黙の時間もそのまま温かく包み込むような場を大切にしています。友達以上家族未満の従姉妹のような距離感　ふと思い出した時にいつでもそばに…</p>
       <div class="tags">
         <span>リフレクソロジスト</span>
-        <span>レイキヒーラー</span>
+        <span>レイキ</span>
         <span>場づくり</span>
+　    <span>西洋占星術</span>
+        <span>カードリーディング</span>
       </div>
     </div>
   </div>
@@ -922,9 +898,9 @@
     <path d="M50 30 C 65 45, 85 55, 80 70 C 75 78, 60 70, 50 55" stroke="#c9a668" stroke-width="1"/>
     <line x1="50" y1="18" x2="50" y2="58" stroke="#f6f0e2" stroke-width="1.2"/>
   </svg>
-  <p class="quote fade-up">あなたの中にある物語は、<br><span class="accent">すでに美しく</span>輝いています。<br>その光に、そっと<br>名前をつける時間を<br>ご一緒できたら嬉しいです。</p>
+  <p class="quote fade-up">あなたの中にある物語に光を灯す<br>そんな時間を一緒に楽しめたら嬉しいです。</p>
   <a href="https://www.instagram.com/nako4108?igsh=NzcyNH16Z3Q5NWto" class="cta-btn fade-up" target="_blank" rel="noopener">
-    お申し込みやご質問は<br>InstagramのDMから<br>お気軽にお声がけください
+    お申し込みやご質問は<br>InstagramのDMから<br>お気軽にお声がけください♡
   </a>
 </section>
 
