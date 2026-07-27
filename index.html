@@ -7,937 +7,1012 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --night-deep:#11132a;
-    --night-mid:#232a52;
-    --night-soft:#323a68;
-    --gold:#c9a668;
-    --gold-soft:#e2cd9a;
-    --cream:#f6f0e2;
-    --cream-dim:#efe6d2;
-    --plum:#463659;
-    --rose:#d69aab;
-    --rose-deep:#b5677c;
-    --ink:#2a2438;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:'Zen Kaku Gothic New', sans-serif;
-    background:var(--cream);
-    color:var(--ink);
-    overflow-x:hidden;
-    line-height:1.9;
-    letter-spacing:.02em;
-  }
-  h1,h2,h3,.serif{
-    font-family:'Shippori Mincho', serif;
-    word-break:keep-all;
-  }
-  .en{
-    font-family:'Cormorant Garamond', serif;
-    letter-spacing:.18em;
-  }
-  a{color:inherit;}
-  img{max-width:100%; display:block;}
+ :root{
+  --night-deep:#11132a;
+  --night-mid:#232a52;
+  --night-soft:#323a68;
+  --gold:#c9a668;
+  --gold-soft:#e2cd9a;
+  --cream:#f6f0e2;
+  --cream-dim:#efe6d2;
+  --plum:#463659;
+  --rose:#d69aab;
+  --rose-deep:#b5677c;
+  --ink:#2a2438;
+ }
+ *{box-sizing:border-box; margin:0; padding:0;}
+ html{scroll-behavior:smooth;}
+ body{
+  font-family:'Zen Kaku Gothic New', sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+  line-height:1.9;
+  letter-spacing:.02em;
+ }
+ h1,h2,h3,.serif{
+  font-family:'Shippori Mincho', serif;
+  word-break:keep-all;
+ }
+ .en{
+  font-family:'Cormorant Garamond', serif;
+  letter-spacing:.18em;
+ }
+ a{color:inherit;}
+ img{max-width:100%; display:block;}
 
-  .phase-rail{
-    position:fixed;
-    right:14px;
-    top:50%;
-    transform:translateY(-50%);
-    z-index:60;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-  }
-  .phase-rail .track{
-    width:2px;
-    height:140px;
-    background:linear-gradient(to bottom, rgba(201,166,104,.15), rgba(201,166,104,.55));
-    position:relative;
-    border-radius:2px;
-  }
-  .phase-rail .moon-icon{
-    width:26px; height:26px;
-    border-radius:50%;
-    position:relative;
-    background:var(--gold-soft);
-    box-shadow:0 0 14px rgba(226,205,154,.6);
-    overflow:hidden;
-    flex:none;
-  }
-  .phase-rail .moon-icon::after{
-    content:'';
-    position:absolute;
-    top:0; left:0;
-    width:100%; height:100%;
-    border-radius:50%;
-    background:var(--night-deep);
-    transform:translateX(var(--shadow-x, 26px));
-    transition:transform .15s linear;
-  }
-  .phase-label{
-    font-family:'Cormorant Garamond', serif;
-    font-size:.62rem;
-    letter-spacing:.22em;
-    color:var(--plum);
-    writing-mode:vertical-rl;
-  }
-  @media (max-width:820px){ .phase-rail{display:none;} }
+ .phase-rail{
+  position:fixed;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:60;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+ }
+ .phase-rail .track{
+  width:2px;
+  height:140px;
+  background:linear-gradient(to bottom, rgba(201,166,104,.15), rgba(201,166,104,.55));
+  position:relative;
+  border-radius:2px;
+ }
+ .phase-rail .moon-icon{
+  width:26px; height:26px;
+  border-radius:50%;
+  position:relative;
+  background:var(--gold-soft);
+  box-shadow:0 0 14px rgba(226,205,154,.6);
+  overflow:hidden;
+  flex:none;
+ }
+ .phase-rail .moon-icon::after{
+  content:'';
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  border-radius:50%;
+  background:var(--night-deep);
+  transform:translateX(var(--shadow-x, 26px));
+  transition:transform .15s linear;
+ }
+ .phase-label{
+  font-family:'Cormorant Garamond', serif;
+  font-size:.62rem;
+  letter-spacing:.22em;
+  color:var(--plum);
+  writing-mode:vertical-rl;
+ }
+ @media (max-width:820px){ .phase-rail{display:none;} }
 
-  section{ position:relative; }
-  .wrap{ max-width:1200px; margin:0 auto; padding:0 24px; }
-  .eyebrow{
-    font-family:'Cormorant Garamond', serif;
-    letter-spacing:.4em;
-    font-size:.72rem;
-    text-transform:uppercase;
-    opacity:.75;
-  }
-  .fade-up{
-    opacity:0;
-    transform:translateY(28px);
-    transition:opacity 1s ease, transform 1s ease;
-  }
-  .fade-up.in{ opacity:1; transform:none; }
-  .divider{
-    width:1px; height:46px;
-    background:linear-gradient(to bottom, transparent, var(--gold), transparent);
-    margin:34px auto;
-    position:relative;
-  }
-  .divider::after{
-    content:'◆';
-    position:absolute; left:50%; top:50%;
-    transform:translate(-50%,-50%);
-    font-size:.55rem;
-    color:var(--gold);
-    background:inherit;
-  }
+ section{ position:relative; }
+ .wrap{ max-width:1200px; margin:0 auto; padding:0 24px; }
+ .eyebrow{
+  font-family:'Cormorant Garamond', serif;
+  letter-spacing:.4em;
+  font-size:.72rem;
+  text-transform:uppercase;
+  opacity:.75;
+ }
+ .fade-up{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity 1s ease, transform 1s ease;
+ }
+ .fade-up.in{ opacity:1; transform:none; }
+ .divider{
+  width:1px; height:46px;
+  background:linear-gradient(to bottom, transparent, var(--gold), transparent);
+  margin:34px auto;
+  position:relative;
+ }
+ .divider::after{
+  content:'◆';
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  font-size:.55rem;
+  color:var(--gold);
+  background:inherit;
+ }
 
-  .hero{
-    min-height:100vh;
-    background:
-      radial-gradient(ellipse at 20% 15%, rgba(120,110,190,.35), transparent 55%),
-      radial-gradient(ellipse at 80% 85%, rgba(180,120,150,.18), transparent 50%),
-      linear-gradient(180deg, var(--night-deep) 0%, var(--night-mid) 60%, var(--night-soft) 100%);
-    color:var(--cream);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:90px 24px 60px;
-    overflow:hidden;
-  }
-  .stars{ position:absolute; inset:0; z-index:0; }
-  .stars span{
-    position:absolute;
-    width:2px; height:2px;
-    background:#fff;
-    border-radius:50%;
-    animation:twinkle 4s ease-in-out infinite;
-    opacity:.6;
-  }
-  @keyframes twinkle{
-    0%,100%{ opacity:.2; }
-    50%{ opacity:1; }
-  }
-  .hero-moon{
-    width:96px; height:96px;
-    border-radius:50%;
-    background:var(--gold-soft);
-    box-shadow:0 0 60px rgba(226,205,154,.45), 0 0 120px rgba(226,205,154,.15);
-    position:relative;
-    margin-bottom:34px;
-    z-index:1;
-  }
-  .hero-moon::after{
-    content:'';
-    position:absolute; top:-6px; left:20px;
-    width:100%; height:100%;
-    border-radius:50%;
-    background:var(--night-deep);
-  }
-  .hero-badge{
-    z-index:1;
-    display:inline-block;
-    padding:9px 26px;
-    border:1px solid var(--gold);
-    border-radius:999px;
-    font-size:.78rem;
-    letter-spacing:.3em;
-    color:var(--gold-soft);
-    margin-bottom:30px;
-  }
-  .hero h1{
-    z-index:1;
-    font-size:clamp(2.1rem, 6vw, 3.6rem);
-    font-weight:600;
-    line-height:1.55;
-    margin-bottom:18px;
-  }
-  .hero h1 small{
-    display:block;
-    font-family:'Cormorant Garamond', serif;
-    font-size:.4em;
-    letter-spacing:.3em;
-    color:var(--gold-soft);
-    font-weight:400;
-    margin-bottom:12px;
-  }
-  .hero .sub{
-    z-index:1;
-    font-family:'Cormorant Garamond', serif;
-    font-style:italic;
-    font-size:1.15rem;
-    color:var(--rose);
-    margin-bottom:26px;
-    letter-spacing:.08em;
-  }
-  .hero .tagline{
-    z-index:1;
-    font-size:1.05rem;
-    color:var(--cream-dim);
-    max-width:26em;
-  }
-  .scroll-cue{
-    z-index:1;
-    margin-top:56px;
-    font-size:.68rem;
-    letter-spacing:.3em;
-    color:var(--gold-soft);
-    opacity:.7;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:8px;
-  }
-  .scroll-cue .line{
-    width:1px; height:34px;
-    background:var(--gold-soft);
-    animation:pulse-line 2s ease-in-out infinite;
-  }
-  @keyframes pulse-line{
-    0%,100%{ transform:scaleY(.6); opacity:.4; }
-    50%{ transform:scaleY(1); opacity:1; }
-  }
+ .hero{
+  min-height:100vh;
+  background:
+   url("hero.png") center center / cover no-repeat,
+   linear-gradient(180deg, var(--night-deep) 0%, var(--night-mid) 60%, var(--night-soft) 100%);
+  color:var(--cream);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  text-align:center;
+  padding:0 24px 60px;
+  overflow:hidden;
+ }
+ /* 画像自体に見出し文字が入っているため、HTML側の重複テキストは非表示 */
+ .hero-moon, .hero h1, .hero .sub, .hero .tagline{ display:none; }
+ .stars{ position:absolute; inset:0; z-index:0; }
+ .stars span{
+  position:absolute;
+  width:2px; height:2px;
+  background:#fff;
+  border-radius:50%;
+  animation:twinkle 4s ease-in-out infinite;
+  opacity:.6;
+ }
+ @keyframes twinkle{
+  0%,100%{ opacity:.2; }
+  50%{ opacity:1; }
+ }
+ .hero-moon{
+  width:96px; height:96px;
+  border-radius:50%;
+  background:var(--gold-soft);
+  box-shadow:0 0 60px rgba(226,205,154,.45), 0 0 120px rgba(226,205,154,.15);
+  position:relative;
+  margin-bottom:34px;
+  z-index:1;
+ }
+ .hero-moon::after{
+  content:'';
+  position:absolute; top:-6px; left:20px;
+  width:100%; height:100%;
+  border-radius:50%;
+  background:var(--night-deep);
+ }
+ .hero-badge{
+  z-index:1;
+  display:inline-block;
+  padding:9px 26px;
+  border:1px solid var(--gold);
+  border-radius:999px;
+  font-size:.78rem;
+  letter-spacing:.3em;
+  color:var(--gold-soft);
+  margin-bottom:30px;
+ }
+ .hero h1{
+  z-index:1;
+  font-size:clamp(2.1rem, 6vw, 3.6rem);
+  font-weight:600;
+  line-height:1.55;
+  margin-bottom:18px;
+ }
+ .hero h1 small{
+  display:block;
+  font-family:'Cormorant Garamond', serif;
+  font-size:.4em;
+  letter-spacing:.3em;
+  color:var(--gold-soft);
+  font-weight:400;
+  margin-bottom:12px;
+ }
+ .hero .sub{
+  z-index:1;
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:1.15rem;
+  color:var(--rose);
+  margin-bottom:26px;
+  letter-spacing:.08em;
+ }
+ .hero .tagline{
+  z-index:1;
+  font-size:1.05rem;
+  color:var(--cream-dim);
+  max-width:26em;
+ }
+ .scroll-cue{
+  z-index:1;
+  margin-top:56px;
+  font-size:.68rem;
+  letter-spacing:.3em;
+  color:var(--gold-soft);
+  opacity:.7;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+ }
+ .scroll-cue .line{
+  width:1px; height:34px;
+  background:var(--gold-soft);
+  animation:pulse-line 2s ease-in-out infinite;
+ }
+ @keyframes pulse-line{
+  0%,100%{ transform:scaleY(.6); opacity:.4; }
+  50%{ transform:scaleY(1); opacity:1; }
+ }
 
-  .empathy{
-    background:var(--cream);
-    padding:120px 0 100px;
-    text-align:center;
-  }
-  .empathy .eyebrow{ color:var(--rose-deep); margin-bottom:18px; }
-  .empathy h2{
-    font-size:clamp(1.5rem,3.6vw,2.2rem);
-    color:var(--plum);
-    margin-bottom:50px;
-    font-weight:600;
-  }
-  .empathy p{
-    max-width:30em;
-    margin:0 auto;
-    color:var(--ink);
-    font-size:1.02rem;
-  }
-  .empathy .block{ margin-bottom:6px; }
+ .empathy{
+  background:var(--cream);
+  padding:120px 0 100px;
+  text-align:center;
+ }
+ .empathy .eyebrow{ color:var(--rose-deep); margin-bottom:18px; }
+ .empathy h2{
+  font-size:clamp(1.5rem,3.6vw,2.2rem);
+  color:var(--plum);
+  margin-bottom:50px;
+  font-weight:600;
+ }
+ .empathy p{
+  max-width:30em;
+  margin:0 auto;
+  color:var(--ink);
+  font-size:1.02rem;
+ }
+ .empathy .block{ margin-bottom:6px; }
 
-  .about{
-    background:linear-gradient(160deg, var(--night-mid), var(--plum));
-    color:var(--cream);
-    padding:110px 24px;
-    text-align:center;
-  }
-  .about .eyebrow{ color:var(--gold-soft); margin-bottom:20px; }
-  .about h2{
-    font-size:clamp(1.4rem,3.2vw,2rem);
-    margin-bottom:28px;
-    font-weight:600;
-  }
-  .about p{
-    max-width:32em;
-    margin:0 auto 14px;
-    color:var(--cream-dim);
-    font-size:.98rem;
-  }
-  .about .note{
-    margin-top:36px;
-    display:inline-block;
-    border:1px solid rgba(226,205,154,.4);
-    border-radius:14px;
-    padding:18px 26px;
-    font-size:.85rem;
-    color:var(--gold-soft);
-  }
+ .about{
+  background:linear-gradient(160deg, var(--night-mid), var(--plum));
+  color:var(--cream);
+  padding:110px 24px;
+  text-align:center;
+ }
+ .about .eyebrow{ color:var(--gold-soft); margin-bottom:20px; }
+ .about h2{
+  font-size:clamp(1.4rem,3.2vw,2rem);
+  margin-bottom:28px;
+  font-weight:600;
+ }
+ .about p{
+  max-width:32em;
+  margin:0 auto 14px;
+  color:var(--cream-dim);
+  font-size:.98rem;
+ }
+ .about .note{
+  margin-top:36px;
+  display:inline-block;
+  border:1px solid rgba(226,205,154,.4);
+  border-radius:14px;
+  padding:18px 26px;
+  font-size:.85rem;
+  color:var(--gold-soft);
+ }
 
-  /* --- MENU SECTION (回転しないバージョンに修正) --- */
-  .menu{
-    background:var(--cream);
-    padding:110px 0 100px;
-  }
-  .menu-head{ text-align:center; margin-bottom:70px; }
-  .menu-head .eyebrow{ color:var(--rose-deep); margin-bottom:16px; }
-  .menu-head h2{ font-size:clamp(1.5rem,3.6vw,2.2rem); color:var(--plum); }
+ /* --- MENU SECTION：昭和レトロ・白銀比の紙質を差し込む --- */
+ .menu{
+  background:
+   repeating-linear-gradient(0deg, rgba(70,54,89,.015) 0px, rgba(70,54,89,.015) 1px, transparent 1px, transparent 3px),
+   var(--cream);
+  padding:110px 0 100px;
+  position:relative;
+ }
+ /* 粒状のフィルム粒子（うるさくならない程度に極薄） */
+ .menu::before{
+  content:'';
+  position:absolute; inset:0;
+  pointer-events:none;
+  opacity:.5;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/></svg>");
+ }
+ .menu-head{ text-align:center; margin-bottom:70px; position:relative; z-index:1; }
+ .menu-head .eyebrow{ color:var(--rose-deep); margin-bottom:16px; }
+ .menu-head h2{ font-size:clamp(1.5rem,3.6vw,2.2rem); color:var(--plum); }
+
+ /* ヒーロー画像にあった、唐草×蝶々のアンティーク調フローリッシュ */
+ .flourish{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  margin:22px auto 0;
+  max-width:360px;
+ }
+ .flourish .line{
+  flex:1;
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+ }
+ .flourish svg{ width:30px; height:24px; flex:none; opacity:.85; }
   
-  .card-grid{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:20px;
-    max-width:1200px;
-    margin:0 auto;
-  }
+ .card-grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:24px;
+  max-width:1200px;
+  margin:0 auto;
+  position:relative;
+  z-index:1;
+ }
   
-  .tarot-card{
-    background:linear-gradient(170deg, #fff, var(--cream-dim));
-    border:1px solid rgba(201,166,104,.4);
-    border-radius:18px;
-    padding:28px 16px 24px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:space-between;
-    text-align:center;
-    min-height:490px;
-    box-shadow:0 4px 15px rgba(70,54,89,.03);
-    transition:transform .3s ease, box-shadow .3s ease;
-  }
-  /* PC用の上品な浮き上がりホバー効果 */
-  .tarot-card:hover, .tarot-card:focus-within{
-    transform:translateY(-6px);
-    box-shadow:0 12px 28px rgba(70,54,89,.08);
-  }
+ .tarot-card{
+  background:
+   linear-gradient(170deg, #fbf7ec, var(--cream-dim));
+  border:1px solid rgba(201,166,104,.55);
+  outline:1px solid rgba(201,166,104,.22);
+  outline-offset:-6px;
+  border-radius:4px;
+  padding:30px 18px 24px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  text-align:center;
+  min-height:490px;
+  position:relative;
+  box-shadow:0 6px 16px rgba(70,54,89,.06), inset 0 0 0 1px rgba(255,255,255,.4);
+  transition:transform .3s ease, box-shadow .3s ease;
+ }
+ /* 昭和写真のコーナーマーク */
+ .tarot-card::before, .tarot-card::after{
+  content:'';
+  position:absolute;
+  width:9px; height:9px;
+  border-top:1px solid var(--gold);
+  border-left:1px solid var(--gold);
+  top:8px; left:8px;
+  opacity:.65;
+ }
+ .tarot-card::after{
+  top:auto; left:auto;
+  bottom:8px; right:8px;
+  border-top:none; border-left:none;
+  border-bottom:1px solid var(--gold);
+  border-right:1px solid var(--gold);
+ }
+ /* PC用の上品な浮き上がりホバー効果 */
+ .tarot-card:hover, .tarot-card:focus-within{
+  transform:translateY(-6px);
+  box-shadow:0 12px 28px rgba(70,54,89,.1);
+ }
 
-  .tarot-card .kicker{
-    font-family:'Cormorant Garamond', serif;
-    letter-spacing:.25em;
-    font-size:.7rem;
-    color:var(--rose-deep);
-    margin-bottom:10px;
-  }
+ .tarot-card .kicker{
+  font-family:'Cormorant Garamond', serif;
+  letter-spacing:.25em;
+  font-size:.7rem;
+  color:var(--rose-deep);
+  margin-bottom:10px;
+ }
   
-  .tarot-card h3{ 
-    font-size:1.15rem; 
-    margin-bottom:14px; 
-    color:var(--plum);
-    line-height:1.45;
-    word-break:normal;
-    overflow-wrap:normal;
-  }
+ .tarot-card h3{ 
+  font-size:1.15rem; 
+  margin-bottom:14px; 
+  color:var(--plum);
+  line-height:1.45;
+  word-break:normal;
+  overflow-wrap:normal;
+ }
   
-  .tarot-card .desc{ 
-    font-size:.85rem; 
-    color:var(--ink); 
-    opacity:.8; 
-    margin-bottom:20px; 
-    line-height:1.7;
-    text-align:left;
-    word-break:normal;
-    overflow-wrap:break-word;
-  }
+ .tarot-card .desc{ 
+  font-size:.85rem; 
+  color:var(--ink); 
+  opacity:.8; 
+  margin-bottom:20px; 
+  line-height:1.7;
+  text-align:left;
+  word-break:normal;
+  overflow-wrap:break-word;
+ }
   
-  .price-block{
-    margin-top:auto;
-    padding-top:14px;
-    border-top:1px solid rgba(70, 54, 89, 0.1);
-    width:100%;
-    text-align:center;
-  }
-  .price-block .duration{
-    font-family:'Zen Kaku Gothic New', sans-serif;
-    letter-spacing:.05em;
-    font-size:1.05rem;
-    font-weight:700;
-    color:var(--plum);
-    margin-bottom:4px;
-  }
-  .price-block .now{
-    font-family:'Cormorant Garamond', serif;
-    font-size:2rem;
-    color:var(--rose-deep);
-    font-weight:700;
-    line-height:1.2;
-  }
-  .price-block .now span{ 
-    font-family:'Zen Kaku Gothic New', sans-serif;
-    font-size:.95rem; 
-    font-weight:500;
-    margin-left:2px;
-  }
+ .price-block{
+  margin-top:auto;
+  padding-top:22px;
+  border-top:1px solid rgba(70, 54, 89, 0.1);
+  width:100%;
+  text-align:center;
+  position:relative;
+ }
+ .price-block::before{
+  content:'';
+  position:absolute;
+  top:-9px; left:50%;
+  transform:translateX(-50%);
+  width:18px; height:14px;
+  background-color:var(--gold);
+  -webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80'><path d='M50 20 C 30 -5, 0 5, 5 30 C 8 48, 30 45, 50 30' stroke='black' stroke-width='6' fill='none'/><path d='M50 20 C 70 -5, 100 5, 95 30 C 92 48, 70 45, 50 30' stroke='black' stroke-width='6' fill='none'/><path d='M50 30 C 35 45, 15 55, 20 70 C 25 78, 40 70, 50 55' stroke='black' stroke-width='5' fill='none'/><path d='M50 30 C 65 45, 85 55, 80 70 C 75 78, 60 70, 50 55' stroke='black' stroke-width='5' fill='none'/></svg>");
+  mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80'><path d='M50 20 C 30 -5, 0 5, 5 30 C 8 48, 30 45, 50 30' stroke='black' stroke-width='6' fill='none'/><path d='M50 20 C 70 -5, 100 5, 95 30 C 92 48, 70 45, 50 30' stroke='black' stroke-width='6' fill='none'/><path d='M50 30 C 35 45, 15 55, 20 70 C 25 78, 40 70, 50 55' stroke='black' stroke-width='5' fill='none'/><path d='M50 30 C 65 45, 85 55, 80 70 C 75 78, 60 70, 50 55' stroke='black' stroke-width='5' fill='none'/></svg>");
+  -webkit-mask-size:contain; mask-size:contain;
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  opacity:.8;
+ }
+ .price-block .duration{
+  font-family:'Zen Kaku Gothic New', sans-serif;
+  letter-spacing:.05em;
+  font-size:1.05rem;
+  font-weight:700;
+  color:var(--plum);
+  margin-bottom:4px;
+ }
+ .price-block .now{
+  font-family:'Cormorant Garamond', serif;
+  font-size:2rem;
+  color:var(--rose-deep);
+  font-weight:700;
+  line-height:1.2;
+ }
+ .price-block .now span{ 
+  font-family:'Zen Kaku Gothic New', sans-serif;
+  font-size:.95rem; 
+  font-weight:500;
+  margin-left:2px;
+ }
 
-  .checklist{
-    background:var(--cream-dim);
-    padding:110px 24px;
-  }
-  .checklist .wrap{
-    display:grid;
-    grid-template-columns:1.1fr .9fr;
-    gap:60px;
-    align-items:center;
-  }
-  @media (max-width:820px){ .checklist .wrap{ grid-template-columns:1fr; } }
-  .checklist h2{
-    font-size:clamp(1.3rem,3vw,1.8rem);
-    color:var(--plum);
-    margin-bottom:30px;
-  }
-  .checklist ul{ list-style:none; }
-  .checklist li{
-    display:flex;
-    gap:16px;
-    padding:16px 0;
-    border-bottom:1px solid rgba(70,54,89,.15);
-    font-size:.95rem;
-  }
-  .checklist li .num{
-    font-family:'Cormorant Garamond', serif;
-    color:var(--gold);
-    font-size:1.1rem;
-    flex:none;
-  }
-  .checklist .footnote{
-    margin-top:28px;
-    font-size:.8rem;
-    color:var(--plum);
-    opacity:.75;
-    line-height:1.8;
-  }
-  .feather-wrap{
-    display:flex; align-items:center; justify-content:center;
-  }
-  .feather-wrap svg{ width:180px; height:auto; }
+ .checklist{
+  background:var(--cream-dim);
+  padding:110px 24px;
+ }
+ .checklist .wrap{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:60px;
+  align-items:center;
+ }
+ @media (max-width:820px){ .checklist .wrap{ grid-template-columns:1fr; } }
+ .checklist h2{
+  font-size:clamp(1.3rem,3vw,1.8rem);
+  color:var(--plum);
+  margin-bottom:30px;
+ }
+ .checklist ul{ list-style:none; }
+ .checklist li{
+  display:flex;
+  gap:16px;
+  padding:16px 0;
+  border-bottom:1px solid rgba(70,54,89,.15);
+  font-size:.95rem;
+ }
+ .checklist li .num{
+  font-family:'Cormorant Garamond', serif;
+  color:var(--gold);
+  font-size:1.1rem;
+  flex:none;
+ }
+ .checklist .footnote{
+  margin-top:28px;
+  font-size:.8rem;
+  color:var(--plum);
+  opacity:.75;
+  line-height:1.8;
+ }
+ .feather-wrap{
+  display:flex; align-items:center; justify-content:center;
+ }
+ .feather-wrap svg{ width:180px; height:auto; }
 
-  .profile{
-    background:linear-gradient(160deg, var(--night-mid), var(--night-deep));
-    color:var(--cream);
-    padding:120px 24px;
-  }
-  .profile .wrap{
-    display:grid;
-    grid-template-columns:.7fr 1.3fr;
-    gap:56px;
-    align-items:center;
-  }
-  .profile-moon{
-    width:180px; height:180px;
-    border-radius:50%;
-    margin:0 auto;
-    background:radial-gradient(circle at 35% 30%, var(--gold-soft), var(--night-mid) 70%);
-    border:1px solid rgba(226,205,154,.5);
-    position:relative;
-  }
-  .profile-moon::after{
-    content:'nako';
-    position:absolute; inset:0;
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Cormorant Garamond', serif;
-    font-style:italic;
-    font-size:1.5rem;
-    color:var(--night-deep);
-    letter-spacing:.05em;
-  }
-  .profile h2{ font-size:1.6rem; margin-bottom:8px; }
-  .profile .role-en{ color:var(--rose); margin-bottom:22px; display:block; }
-  .profile p{ color:var(--cream-dim); font-size:.95rem; margin-bottom:22px; max-width:34em; }
-  .tags{ display:flex; flex-wrap:wrap; gap:10px; }
-  .tags span{
-    border:1px solid var(--gold);
-    color:var(--gold-soft);
-    font-size:.75rem;
-    padding:7px 16px;
-    border-radius:999px;
-  }
+ .profile{
+  background:linear-gradient(160deg, var(--night-mid), var(--night-deep));
+  color:var(--cream);
+  padding:120px 24px;
+ }
+ .profile .wrap{
+  display:grid;
+  grid-template-columns:.7fr 1.3fr;
+  gap:56px;
+  align-items:center;
+ }
+ .profile-moon{
+  width:180px; height:180px;
+  border-radius:50%;
+  margin:0 auto;
+  background:radial-gradient(circle at 35% 30%, var(--gold-soft), var(--night-mid) 70%);
+  border:1px solid rgba(226,205,154,.5);
+  position:relative;
+ }
+ .profile-moon::after{
+  content:'nako';
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:1.5rem;
+  color:var(--night-deep);
+  letter-spacing:.05em;
+ }
+ .profile h2{ font-size:1.6rem; margin-bottom:8px; }
+ .profile .role-en{ color:var(--rose); margin-bottom:22px; display:block; }
+ .profile p{ color:var(--cream-dim); font-size:.95rem; margin-bottom:22px; max-width:34em; }
+ .tags{ display:flex; flex-wrap:wrap; gap:10px; }
+ .tags span{
+  border:1px solid var(--gold);
+  color:var(--gold-soft);
+  font-size:.75rem;
+  padding:7px 16px;
+  border-radius:999px;
+ }
 
-  .closing{
-    background:
-      radial-gradient(ellipse at 30% 20%, rgba(120,110,190,.3), transparent 55%),
-      linear-gradient(180deg, var(--night-deep), #08091a);
-    color:var(--cream);
-    text-align:center;
-    padding:130px 24px 90px;
-    position:relative;
-    overflow:hidden;
-  }
-  .butterfly{
-    width:64px; height:64px;
-    margin:0 auto 30px;
-    opacity:0;
-    transform:scale(.6);
-    transition:opacity 1.2s ease, transform 1.2s ease;
-  }
-  .butterfly.in{ opacity:1; transform:scale(1); }
-  .closing .quote{
-    font-family:'Shippori Mincho', serif;
-    font-size:clamp(1.15rem,2.6vw,1.5rem);
-    line-height:2.1;
-    max-width:22em;
-    margin:0 auto 40px;
-    color:var(--cream-dim);
-    word-break:keep-all;
-    overflow-wrap:break-word;
-  }
-  .closing .quote .accent{ color:var(--gold-soft); }
-  .cta-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:12px;
-    background:linear-gradient(120deg, var(--rose-deep), var(--gold));
-    color:#fff;
-    padding:18px 42px;
-    border-radius:999px;
-    font-size:.95rem;
-    letter-spacing:.08em;
-    text-decoration:none;
-    box-shadow:0 10px 30px rgba(214,154,171,.3);
-    transition:transform .3s ease, box-shadow .3s ease;
-  }
-  .cta-btn:hover{ transform:translateY(-3px); box-shadow:0 14px 36px rgba(214,154,171,.45); }
-  .closing .handle{
-    display:block;
-    margin-top:20px;
-    font-family:'Cormorant Garamond', serif;
-    letter-spacing:.2em;
-    color:var(--gold-soft);
-    font-size:.85rem;
-  }
-  footer{
-    text-align:center;
-    padding:34px 24px;
-    background:#08091a;
-    color:var(--gold-soft);
-    font-family:'Cormorant Garamond', serif;
-    letter-spacing:.25em;
-    font-size:.72rem;
-  }
+ .closing{
+  background:
+   radial-gradient(ellipse at 30% 20%, rgba(120,110,190,.3), transparent 55%),
+   linear-gradient(180deg, var(--night-deep), #08091a);
+  color:var(--cream);
+  text-align:center;
+  padding:130px 24px 90px;
+  position:relative;
+  overflow:hidden;
+ }
+ .butterfly{
+  width:64px; height:64px;
+  margin:0 auto 30px;
+  opacity:0;
+  transform:scale(.6);
+  transition:opacity 1.2s ease, transform 1.2s ease;
+ }
+ .butterfly.in{ opacity:1; transform:scale(1); }
+ .closing .quote{
+  font-family:'Shippori Mincho', serif;
+  font-size:clamp(1.15rem,2.6vw,1.5rem);
+  line-height:2.1;
+  max-width:22em;
+  margin:0 auto 40px;
+  color:var(--cream-dim);
+  word-break:keep-all;
+  overflow-wrap:break-word;
+ }
+ .closing .quote .accent{ color:var(--gold-soft); }
+ .cta-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  background:linear-gradient(120deg, var(--rose-deep), var(--gold));
+  color:#fff;
+  padding:18px 42px;
+  border-radius:999px;
+  font-size:.95rem;
+  letter-spacing:.08em;
+  text-decoration:none;
+  box-shadow:0 10px 30px rgba(214,154,171,.3);
+  transition:transform .3s ease, box-shadow .3s ease;
+ }
+ .cta-btn:hover{ transform:translateY(-3px); box-shadow:0 14px 36px rgba(214,154,171,.45); }
+ .closing .handle{
+  display:block;
+  margin-top:20px;
+  font-family:'Cormorant Garamond', serif;
+  letter-spacing:.2em;
+  color:var(--gold-soft);
+  font-size:.85rem;
+ }
+ footer{
+  text-align:center;
+  padding:34px 24px;
+  background:#08091a;
+  color:var(--gold-soft);
+  font-family:'Cormorant Garamond', serif;
+  letter-spacing:.25em;
+  font-size:.72rem;
+ }
 
-  @media (prefers-reduced-motion: reduce){
-    *{ animation:none !important; transition:none !important; }
-  }
+ @media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+ }
 
 /* ---------- タブレット専用（画面幅1024px以下） ---------- */
 @media (max-width: 1024px) {
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  .tarot-card {
-    min-height: 460px;
-  }
+ .card-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 700px;
+  margin: 0 auto;
+ }
+ .tarot-card {
+  min-height: 460px;
+ }
 }
 
 /* ---------- スマホ専用調整（画面幅768px以下） ---------- */
 @media (max-width: 768px) {
-  html, body {
-    overflow-x: hidden;
-    width: 100%;
-  }
-  body {
-    font-size: 0.9rem;
-    line-height: 1.8;
-  }
-  .wrap {
-    padding: 0 20px;
-  }
-  .divider {
-    margin: 28px auto;
-    height: 36px;
-  }
-  .hero {
-    padding: 70px 20px 40px;
-  }
-  .hero-moon {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 24px;
-  }
-  .hero h1 {
-    font-size: 1.8rem;
-    margin-bottom: 12px;
-  }
-  .hero h1 small {
-    font-size: 0.45em;
-    margin-bottom: 8px;
-  }
-  .hero .sub {
-    font-size: 1rem;
-    margin-bottom: 20px;
-  }
-  .hero .tagline {
-    font-size: 0.9rem;
-    max-width: 100%;
-  }
-  .empathy {
-    padding: 80px 0 60px;
-    text-align: center;
-  }
-  .empathy h2 {
-    font-size: 1.4rem;
-    margin-bottom: 34px;
-    text-align: center;
-  }
-  .empathy p {
-    font-size: 0.9rem;
-    max-width: 100%;
-    text-align: center;
-    display: inline-block;
-  }
-  .about {
-    padding: 80px 20px;
-  }
-  .about h2 {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-  }
-  .about .note {
-    margin-top: 28px;
-    padding: 14px 20px;
-    font-size: 0.8rem;
-    border-radius: 10px;
-  }
-  .menu {
-    padding: 80px 0 70px;
-  }
-  .menu-head {
-    margin-bottom: 40px;
-  }
-  .menu-head h2 {
-    font-size: 1.5rem;
-  }
+ html, body {
+  overflow-x: hidden;
+  width: 100%;
+ }
+ body {
+  font-size: 0.9rem;
+  line-height: 1.8;
+ }
+ .wrap {
+  padding: 0 20px;
+ }
+ .divider {
+  margin: 28px auto;
+  height: 36px;
+ }
+ .hero {
+  padding: 70px 20px 40px;
+ }
+ .hero-moon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 24px;
+ }
+ .hero h1 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+ }
+ .hero h1 small {
+  font-size: 0.45em;
+  margin-bottom: 8px;
+ }
+ .hero .sub {
+  font-size: 1rem;
+  margin-bottom: 20px;
+ }
+ .hero .tagline {
+  font-size: 0.9rem;
+  max-width: 100%;
+ }
+ .empathy {
+  padding: 80px 0 60px;
+  text-align: center;
+ }
+ .empathy h2 {
+  font-size: 1.4rem;
+  margin-bottom: 34px;
+  text-align: center;
+ }
+ .empathy p {
+  font-size: 0.9rem;
+  max-width: 100%;
+  text-align: center;
+  display: inline-block;
+ }
+ .about {
+  padding: 80px 20px;
+ }
+ .about h2 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+ }
+ .about .note {
+  margin-top: 28px;
+  padding: 14px 20px;
+  font-size: 0.8rem;
+  border-radius: 10px;
+ }
+ .menu {
+  padding: 80px 0 70px;
+ }
+ .menu-head {
+  margin-bottom: 40px;
+ }
+ .menu-head h2 {
+  font-size: 1.5rem;
+ }
   
-  /* スマホ時は綺麗に中央1列並び・左右余白を均等に保持 */
-  .card-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    max-width: 340px;
-    margin: 0 auto;
-  }
-  .tarot-card {
-    min-height: 420px;
-  }
-  .tarot-card:hover {
-    transform: none; /* スマホでの誤タップ時の挙動防止 */
-  }
-  .tarot-card .desc {
-    font-size: 0.82rem;
-    margin-bottom: 14px;
-    line-height: 1.8;
-    text-align: center;
-  }
-  .price-block .duration {
-    font-size: 1rem;
-  }
-  .price-block .now {
-    font-size: 1.75rem;
-  }
-  .price-block .now span {
-    font-size: 0.88rem;
-  }
+ /* スマホ時は綺麗に中央1列並び・左右余白を均等に保持 */
+ .card-grid {
+  grid-template-columns: 1fr;
+  gap: 24px;
+  max-width: 340px;
+  margin: 0 auto;
+ }
+ .tarot-card {
+  min-height: 370px;
+ }
+ .tarot-card:hover {
+  transform: none; /* スマホでの誤タップ時の挙動防止 */
+ }
+ .tarot-card .desc {
+  font-size: 0.82rem;
+  margin-bottom: 14px;
+  line-height: 1.8;
+  text-align: center;
+ }
+ .price-block .duration {
+  font-size: 1rem;
+ }
+ .price-block .now {
+  font-size: 1.75rem;
+ }
+ .price-block .now span {
+  font-size: 0.88rem;
+ }
   
-  .checklist {
-    padding: 80px 20px;
-    text-align: center;
-  }
-  .checklist .wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-  }
-  .checklist h2 {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  .checklist ul {
-    width: 100%;
-    max-width: 280px;
-    margin: 0 auto;
-    text-align: left;
-    padding: 0;
-  }
-  .checklist li {
-    padding: 12px 0;
-    font-size: 0.9rem;
-  }
-  .feather-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 20px auto 0;
-  }
-  .feather-wrap svg {
-    width: 120px !important;
-    height: auto !important;
-  }
-  .profile {
-    padding: 80px 20px;
-  }
-  .profile .wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 30px;
-  }
-  .profile-moon {
-    margin: 0 auto !important;
-    width: 140px;
-    height: 140px;
-  }
-  .profile h2 {
-    font-size: 1.4rem;
-  }
-  .profile .role-en {
-    margin-bottom: 16px;
-  }
-  .profile p {
-    font-size: 0.88rem;
-    text-align: center;
-    max-width: 100%;
-  }
-  .tags {
-    justify-content: center;
-  }
-  .closing {
-    padding: 90px 20px 80px;
-  }
-  .butterfly {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 20px;
-  }
-  .closing .quote {
-    font-size: 1.05rem;
-    margin-bottom: 30px;
-    max-width: 100%;
-  }
-  .cta-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px 20px;
-    font-size: 0.82rem;
-    line-height: 1.5;
-    width: 90%;
-    max-width: 320px;
-    margin: 0 auto;
-    white-space: normal;
-    box-sizing: border-box;
-  }
+ .checklist {
+  padding: 80px 20px;
+  text-align: center;
+ }
+ .checklist .wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+ }
+ .checklist h2 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  text-align: center;
+ }
+ .checklist ul {
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  text-align: left;
+  padding: 0;
+ }
+ .checklist li {
+  padding: 12px 0;
+  font-size: 0.9rem;
+ }
+ .feather-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px auto 0;
+ }
+ .feather-wrap svg {
+  width: 120px !important;
+  height: auto !important;
+ }
+ .profile {
+  padding: 80px 20px;
+ }
+ .profile .wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 30px;
+ }
+ .profile-moon {
+  margin: 0 auto !important;
+  width: 140px;
+  height: 140px;
+ }
+ .profile h2 {
+  font-size: 1.4rem;
+ }
+ .profile .role-en {
+  margin-bottom: 16px;
+ }
+ .profile p {
+  font-size: 0.88rem;
+  text-align: center;
+  max-width: 100%;
+ }
+ .tags {
+  justify-content: center;
+ }
+ .closing {
+  padding: 90px 20px 80px;
+ }
+ .butterfly {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 20px;
+ }
+ .closing .quote {
+  font-size: 1.05rem;
+  margin-bottom: 30px;
+  max-width: 100%;
+ }
+ .cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 20px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  width: 90%;
+  max-width: 320px;
+  margin: 0 auto;
+  white-space: normal;
+  box-sizing: border-box;
+ }
 }
 </style>
 </head>
 <body>
 
 <div class="phase-rail" aria-hidden="true">
-  <span class="phase-label en">NEW → FULL</span>
-  <div class="track"></div>
-  <div class="moon-icon" id="phaseMoon"></div>
+ <span class="phase-label en">NEW → FULL</span>
+ <div class="track"></div>
+ <div class="moon-icon" id="phaseMoon"></div>
 </div>
 
 <section class="hero" id="hero">
-  <div class="stars" id="starField"></div>
-  <div class="hero-moon"></div>
-  <h1>
-    <small class="en">nako's card session</small>
-    変容を楽しむ<br>カードセッション
-  </h1>
-  <p class="sub en">〜 まどろみの麓 〜</p>
-  <p class="tagline">変容の途中にいるあなたへ。</p>
-  <div class="scroll-cue">
-    <span class="line"></span>
-    scroll
-  </div>
+ <div class="stars" id="starField"></div>
+ <div class="hero-moon"></div>
+ <h1>
+  <small class="en">nako's card session</small>
+  変容を楽しむ<br>カードセッション
+ </h1>
+ <p class="sub en">〜 まどろみの麓 〜</p>
+ <p class="tagline">変容の途中にいるあなたへ。</p>
+ <div class="scroll-cue">
+  <span class="line"></span>
+  scroll
+ </div>
 </section>
 
 <section class="empathy">
-  <div class="wrap">
-    <p class="eyebrow en fade-up">to those becoming</p>
-    <h2 class="fade-up">人生には時に<br>サナギのような<br>時間があります</h2>
-    <div class="block fade-up">
-      <p>これまでの生き方がしっくりこなくなる<br>理由のわからない違和感をふと感じる。</p>
-    </div>
-    <div class="divider"></div>
-    <div class="block fade-up">
-      <p>まだ次の形は見えていないけれど<br>確かに何かが変わり始めている。</p>
-    </div>
-    <div class="divider"></div>
-    <div class="block fade-up">
-      <p>ここはそんな変容の途中にいる方との<br>静かな対話の場です。</p>
-    </div>
+ <div class="wrap">
+  <p class="eyebrow en fade-up">to those becoming</p>
+  <h2 class="fade-up">人生には時に<br>サナギのような<br>時間があります</h2>
+  <div class="block fade-up">
+   <p>これまでの生き方がしっくりこなくなる<br>理由のわからない違和感をふと感じる。</p>
   </div>
+  <div class="divider"></div>
+  <div class="block fade-up">
+   <p>まだ次の形は見えていないけれど<br>確かに何かが変わり始めている。</p>
+  </div>
+  <div class="divider"></div>
+  <div class="block fade-up">
+   <p>ここはそんな変容の途中にいる方との<br>静かな対話の場です。</p>
+  </div>
+ </div>
 </section>
 
 <section class="about">
-  <div class="wrap">
-    <p class="eyebrow en fade-up">what this is</p>
-    <h2 class="fade-up">カードと星の視点から<br>言葉にならない想いを見つめる</h2>
-    <p class="fade-up">あなただけの出生情報からも<br>傾向やテーマを探る。</p>
-     </div>
+ <div class="wrap">
+  <p class="eyebrow en fade-up">what this is</p>
+  <h2 class="fade-up">カードと星の視点から<br>言葉にならない想いを見つめる</h2>
+  <p class="fade-up">あなただけの出生情報からも<br>傾向やテーマを探る。</p>
+   </div>
 </section>
 
 <section class="menu">
-  <div class="wrap">
-    <div class="menu-head">
-      <p class="eyebrow en fade-up">the sessions</p>
-      <h2 class="fade-up">ご案内</h2>
-    </div>
-
-    <div class="card-grid">
-      <!-- 1つ目のメニュー -->
-      <div class="tarot-card fade-up" tabindex="0">
-        <div>
-          <p class="kicker en">by message</p>
-          <h3>カードメッセージ</h3>
-          <p class="desc">しっかりとご相談内容をヒヤリング<br>メッセージで対話を進めていきます。<br>忙しい方や時間がとれない時に
-        </div>
-        <div class="price-block">
-          <div class="duration">DMテキスト対話</div>
-          <div class="now">4,000<span>円</span></div>
-        </div>
-      </div>
-
-      <!-- 2つ目のメニュー -->
-      <div class="tarot-card fade-up" tabindex="0">
-        <div>
-          <p class="kicker en">60 minutes / zoom</p>
-          <h3>星とカードの<br>対話セッション</h3>
-          <p class="desc">今、気になっていること1テーマ<br>違和感やモヤモヤを吐き出したい<br>気軽にお話を体験してみたい時に。</p>
-        </div>
-        <div class="price-block">
-          <div class="duration">60分</div>
-          <div class="now">8,000<span>円</span></div>
-        </div>
-      </div>
-
-      <!-- 3つ目のメニュー -->
-      <div class="tarot-card fade-up" tabindex="0">
-        <div>
-          <p class="kicker en">90 minutes / zoom</p>
-          <h3>星とカードの<br>対話セッション</h3>
-        <p class="desc">なんとなくの違和感やお悩み<br>モヤモヤの奥を一緒に探る心<br>今の心地よい流れの先を<br>見つけたい時に。</p>
-       </div> 
-          <div class="price-block">
-          <div class="duration">90分</div>
-          <div class="now">12,000<span>円</span></div>
-        </div>
-      </div>
-
-      <!-- 4つ目のメニュー -->
-      <div class="tarot-card fade-up" tabindex="0">
-        <div>
-          <p class="kicker en">120 minutes / zoom</p>
-          <h3>星とカードの<br>対話セッション</h3>
-          <p class="desc">いくつかのテーマをじっくりと対話。<br>ゆったりとした時間を<br>あなたのペースで進める<br>内側の声に深く耳を傾けてみたい時に。</p>
-        </div>
-        <div class="price-block">
-          <div class="duration">120分</div>
-          <div class="now">14,000<span>円</span></div>
-        </div>
-      </div>
-    </div>
+ <div class="wrap">
+  <div class="menu-head">
+   <p class="eyebrow en fade-up">the sessions</p>
+   <h2 class="fade-up">ご案内</h2>
+   <div class="flourish fade-up">
+    <span class="line"></span>
+    <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+     <path d="M50 20 C 30 -5, 0 5, 5 30 C 8 48, 30 45, 50 30" stroke="#c9a668" stroke-width="4"/>
+     <path d="M50 20 C 70 -5, 100 5, 95 30 C 92 48, 70 45, 50 30" stroke="#c9a668" stroke-width="4"/>
+     <path d="M50 30 C 35 45, 15 55, 20 70 C 25 78, 40 70, 50 55" stroke="#c9a668" stroke-width="3"/>
+     <path d="M50 30 C 65 45, 85 55, 80 70 C 75 78, 60 70, 50 55" stroke="#c9a668" stroke-width="3"/>
+    </svg>
+    <span class="line"></span>
+   </div>
   </div>
+
+  <div class="card-grid">
+   <!-- 1つ目のメニュー -->
+   <div class="tarot-card fade-up" tabindex="0">
+    <div>
+     <p class="kicker en">by message</p>
+     <h3>カードメッセージ</h3>
+     <p class="desc">しっかりとご相談内容をヒヤリング<br>メッセージで対話を進めていきます。<br>忙しい方や時間がとれない時に
+    </div>
+    <div class="price-block">
+     <div class="duration">DMテキスト対話</div>
+     <div class="now">4,000<span>円</span></div>
+    </div>
+   </div>
+
+   <!-- 2つ目のメニュー -->
+   <div class="tarot-card fade-up" tabindex="0">
+    <div>
+     <p class="kicker en">60 minutes / zoom</p>
+     <h3>星とカードの<br>対話セッション</h3>
+     <p class="desc">今、気になっていること1テーマ<br>違和感やモヤモヤを吐き出したい<br>気軽にお話を体験してみたい時に。</p>
+    </div>
+    <div class="price-block">
+     <div class="duration">60分</div>
+     <div class="now">8,000<span>円</span></div>
+    </div>
+   </div>
+
+   <!-- 3つ目のメニュー -->
+   <div class="tarot-card fade-up" tabindex="0">
+    <div>
+     <p class="kicker en">90 minutes / zoom</p>
+     <h3>星とカードの<br>対話セッション</h3>
+    <p class="desc">なんとなくの違和感やお悩み<br>モヤモヤの奥を一緒に探る心<br>今の心地よい流れの先を<br>見つけたい時に。</p>
+    </div> 
+     <div class="price-block">
+     <div class="duration">90分</div>
+     <div class="now">12,000<span>円</span></div>
+    </div>
+   </div>
+
+   <!-- 4つ目のメニュー -->
+   <div class="tarot-card fade-up" tabindex="0">
+    <div>
+     <p class="kicker en">120 minutes / zoom</p>
+     <h3>星とカードの<br>対話セッション</h3>
+     <p class="desc">いくつかのテーマをじっくりと対話。<br>ゆったりとした時間を<br>あなたのペースで進める<br>内側の声に深く耳を傾けてみたい時に。</p>
+    </div>
+    <div class="price-block">
+     <div class="duration">120分</div>
+     <div class="now">14,000<span>円</span></div>
+    </div>
+   </div>
+  </div>
+ </div>
 </section>
 
 <section class="checklist">
-  <div class="wrap">
-    <div class="fade-up">
-      <p class="eyebrow en" style="color:var(--rose-deep); margin-bottom:14px;">before you begin</p>
-      <h2>お申し込み時に<br>お伺いすること</h2>
-      <ul>
-        <li><span class="num en">01</span><span>生年月日</span></li>
-        <li><span class="num en">02</span><span>出生地</span></li>
-        <li><span class="num en">03</span><span>出生時間(わかる範囲で)</span></li>
-      </ul>
-      <p class="footnote">※詳細な鑑定を行うものではありません。<br>星の傾向やテーマを理解し<br>より深く言葉を届けるための参考として活用させていただきます。</p>
-    </div>
-    <div class="feather-wrap fade-up">
-      <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M100 250 C 95 190, 70 150, 40 100 C 30 80, 35 55, 55 35 C 90 0, 150 10, 170 45 C 190 80, 165 130, 130 155 C 105 175, 108 210, 100 250 Z"
-              stroke="#c9a668" stroke-width="1.4"/>
-        <path d="M100 240 C 98 190, 90 150, 75 110" stroke="#c9a668" stroke-width="1"/>
-        <path d="M95 200 L 60 190 M100 175 L 65 163 M108 150 L 78 136 M115 125 L 90 108 M122 100 L 100 82"
-              stroke="#c9a668" stroke-width=".8" opacity=".7"/>
-        <ellipse cx="100" cy="252" rx="6" ry="14" fill="#463659"/>
-      </svg>
-    </div>
+ <div class="wrap">
+  <div class="fade-up">
+   <p class="eyebrow en" style="color:var(--rose-deep); margin-bottom:14px;">before you begin</p>
+   <h2>お申し込み時に<br>お伺いすること</h2>
+   <ul>
+    <li><span class="num en">01</span><span>生年月日</span></li>
+    <li><span class="num en">02</span><span>出生地</span></li>
+    <li><span class="num en">03</span><span>出生時間(わかる範囲で)</span></li>
+   </ul>
+   <p class="footnote">※詳細な鑑定を行うものではありません。<br>星の傾向やテーマを理解し<br>より深く言葉を届けるための参考として活用させていただきます。</p>
   </div>
+  <div class="feather-wrap fade-up">
+   <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 250 C 95 190, 70 150, 40 100 C 30 80, 35 55, 55 35 C 90 0, 150 10, 170 45 C 190 80, 165 130, 130 155 C 105 175, 108 210, 100 250 Z"
+       stroke="#c9a668" stroke-width="1.4"/>
+    <path d="M100 240 C 98 190, 90 150, 75 110" stroke="#c9a668" stroke-width="1"/>
+    <path d="M95 200 L 60 190 M100 175 L 65 163 M108 150 L 78 136 M115 125 L 90 108 M122 100 L 100 82"
+       stroke="#c9a668" stroke-width=".8" opacity=".7"/>
+    <ellipse cx="100" cy="252" rx="6" ry="14" fill="#463659"/>
+   </svg>
+  </div>
+ </div>
 </section>
 
 <section class="profile">
-  <div class="wrap">
-    <div class="profile-moon fade-up"></div>
-    <div class="fade-up">
-      <h2>nako <span class="en" style="font-size:.6em; color:var(--gold-soft);">profile</span></h2>
-      <span class="role-en en">reflexologist · reiki healer</span>
-      <p>ジブリ・心理学・マニアックな話が好き。<br>言葉にならないモヤモヤ<br>静かな沈黙の時間もそのまま温かく包み込むような場を大切にしています。<br>友達以上家族未満の従姉妹のような距離感<br>　ふと思い出した時にいつでもそばに…</p>
-      <div class="tags">
-        <span>リフレクソロジスト</span>
-        <span>レイキ</span>
-        <span>場づくり</span>
-　    <span>西洋占星術</span>
-        <span>カードリーディング</span>
-      </div>
-    </div>
+ <div class="wrap">
+  <div class="profile-moon fade-up"></div>
+  <div class="fade-up">
+   <h2>nako <span class="en" style="font-size:.6em; color:var(--gold-soft);">profile</span></h2>
+   <span class="role-en en">reflexologist · reiki healer</span>
+   <p>ジブリ・心理学・マニアックな話が好き。<br>言葉にならないモヤモヤ<br>静かな沈黙の時間もそのまま温かく包み込むような場を大切にしています。<br>友達以上家族未満の従姉妹のような距離感<br>　ふと思い出した時にいつでもそばに…</p>
+   <div class="tags">
+    <span>リフレクソロジスト</span>
+    <span>レイキ</span>
+    <span>場づくり</span>
+  <span>西洋占星術</span>
+    <span>カードリーディング</span>
+   </div>
   </div>
+ </div>
 </section>
 
 <section class="closing">
-  <svg class="butterfly" id="butterfly" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M50 20 C 30 -5, 0 5, 5 30 C 8 48, 30 45, 50 30" stroke="#d69aab" stroke-width="1.3"/>
-    <path d="M50 20 C 70 -5, 100 5, 95 30 C 92 48, 70 45, 50 30" stroke="#c9a668" stroke-width="1.3"/>
-    <path d="M50 30 C 35 45, 15 55, 20 70 C 25 78, 40 70, 50 55" stroke="#d69aab" stroke-width="1"/>
-    <path d="M50 30 C 65 45, 85 55, 80 70 C 75 78, 60 70, 50 55" stroke="#c9a668" stroke-width="1"/>
-    <line x1="50" y1="18" x2="50" y2="58" stroke="#f6f0e2" stroke-width="1.2"/>
-  </svg>
-  <p class="quote fade-up">あなたの中にある物語に光を灯す<br>時間を一緒に楽しめたら嬉しいです。</p>
-  <a href="https://www.instagram.com/nako4108?igsh=NzcyNH16Z3Q5NWto" class="cta-btn fade-up" target="_blank" rel="noopener">
-    お申し込みやご質問は<br>InstagramのDMから<br>お気軽にお声がけください♡
-  </a>
+ <svg class="butterfly" id="butterfly" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 20 C 30 -5, 0 5, 5 30 C 8 48, 30 45, 50 30" stroke="#d69aab" stroke-width="1.3"/>
+  <path d="M50 20 C 70 -5, 100 5, 95 30 C 92 48, 70 45, 50 30" stroke="#c9a668" stroke-width="1.3"/>
+  <path d="M50 30 C 35 45, 15 55, 20 70 C 25 78, 40 70, 50 55" stroke="#d69aab" stroke-width="1"/>
+  <path d="M50 30 C 65 45, 85 55, 80 70 C 75 78, 60 70, 50 55" stroke="#c9a668" stroke-width="1"/>
+  <line x1="50" y1="18" x2="50" y2="58" stroke="#f6f0e2" stroke-width="1.2"/>
+ </svg>
+ <p class="quote fade-up">あなたの中にある物語に光を灯す<br>時間を一緒に楽しめたら嬉しいです。</p>
+ <a href="https://www.instagram.com/nako4108?igsh=NzcyNH16Z3Q5NWto" class="cta-btn fade-up" target="_blank" rel="noopener">
+  お申し込みやご質問は<br>InstagramのDMから<br>お気軽にお声がけください♡
+ </a>
 </section>
 
 <footer class="en">— MADOROMI NO FUMOTO —</footer>
 
 <script>
-  const field = document.getElementById('starField');
-  const n = 90;
-  for(let i=0;i<n;i++){
-    const s = document.createElement('span');
-    s.style.left = Math.random()*100 + '%';
-    s.style.top = Math.random()*100 + '%';
-    s.style.animationDelay = (Math.random()*4) + 's';
-    s.style.width = s.style.height = (Math.random()*1.6+1) + 'px';
-    field.appendChild(s);
-  }
+ const field = document.getElementById('starField');
+ const n = 90;
+ for(let i=0;i<n;i++){
+  const s = document.createElement('span');
+  s.style.left = Math.random()*100 + '%';
+  s.style.top = Math.random()*100 + '%';
+  s.style.animationDelay = (Math.random()*4) + 's';
+  s.style.width = s.style.height = (Math.random()*1.6+1) + 'px';
+  field.appendChild(s);
+ }
 
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('in'); }
-    });
-  }, {threshold:.2});
-  document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+ const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+   if(e.isIntersecting){ e.target.classList.add('in'); }
+  });
+ }, {threshold:.2});
+ document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
 
-  const bio = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
-  }, {threshold:.4});
-  bio.observe(document.getElementById('butterfly'));
+ const bio = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+ }, {threshold:.4});
+ bio.observe(document.getElementById('butterfly'));
 
-  const moonEl = document.getElementById('phaseMoon');
-  function updatePhase(){
-    const scrollTop = window.scrollY;
-    const max = document.body.scrollHeight - window.innerHeight;
-    const pct = Math.min(1, Math.max(0, scrollTop / max));
-    const shadowX = 26 - pct*52;
-    moonEl.style.setProperty('--shadow-x', shadowX + 'px');
-  }
-  window.addEventListener('scroll', updatePhase, {passive:true});
-  updatePhase();
+ const moonEl = document.getElementById('phaseMoon');
+ function updatePhase(){
+  const scrollTop = window.scrollY;
+  const max = document.body.scrollHeight - window.innerHeight;
+  const pct = Math.min(1, Math.max(0, scrollTop / max));
+  const shadowX = 26 - pct*52;
+  moonEl.style.setProperty('--shadow-x', shadowX + 'px');
+ }
+ window.addEventListener('scroll', updatePhase, {passive:true});
+ updatePhase();
 </script>
 </body>
 </html>
