@@ -229,7 +229,6 @@
   letter-spacing:.08em;
  }
 
- /* 右側イラスト調のシンプルな線だけの細い蝶々 */
  .flourish{
   display:flex;
   align-items:center;
@@ -248,7 +247,7 @@
  .card-grid{
   display:grid;
   grid-template-columns:repeat(4, 1fr);
-  gap:24px;
+  gap:20px;
   max-width:1200px;
   margin:0 auto;
   position:relative;
@@ -261,7 +260,7 @@
   outline:1px solid rgba(201,166,104,.18);
   outline-offset:-6px;
   border-radius:4px;
-  padding:32px 20px 26px;
+  padding:32px 14px 26px; /* 横余白を狭めて文字領域を拡張 */
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -295,7 +294,7 @@
 
  .tarot-card .kicker{
   font-family:'Cormorant Garamond', serif;
-  letter-spacing:.25em;
+  letter-spacing:.2em;
   font-size:.78rem;
   color:var(--gold);
   margin-bottom:12px;
@@ -304,24 +303,25 @@
   
  .tarot-card h3{ 
   font-family:'Shippori Mincho', serif;
-  font-size:1.2rem; 
+  font-size:1.15rem; 
   margin-bottom:16px; 
   color:var(--ink);
   line-height:1.5;
   font-weight:600;
-  letter-spacing:.03em;
+  letter-spacing:.02em;
  }
   
  .tarot-card .desc{ 
   font-family:'Zen Kaku Gothic New', sans-serif;
-  font-size:.85rem; 
+  font-size:.82rem; 
   color:var(--ink); 
-  opacity:.85; 
+  opacity:.88; 
   margin-bottom:20px; 
   line-height:1.85;
   text-align:center;
-  word-break:normal;
+  word-break:keep-all; /* 単語・文節途中での意図しない改行を防止 */
   overflow-wrap:break-word;
+  letter-spacing:0;
  }
   
  .price-block{
@@ -333,7 +333,6 @@
   position:relative;
  }
 
- /* 線画の蝶々アイコン（カード内） */
  .butterfly-icon {
   width: 20px;
   height: 16px;
@@ -516,6 +515,7 @@
  }
  .tarot-card {
   min-height: 460px;
+  padding: 32px 20px 26px;
  }
 }
 
@@ -576,12 +576,13 @@
  }
  .tarot-card {
   min-height: 370px;
+  padding: 32px 20px 26px;
  }
  .tarot-card:hover {
   transform: none;
  }
  .tarot-card .desc {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   margin-bottom: 14px;
   line-height: 1.85;
   text-align: center;
@@ -654,7 +655,7 @@
  }
  .profile .role-en {
   margin-bottom: 16px;
- me }
+ }
  .profile p {
   font-size: 0.88rem;
   text-align: center;
@@ -746,7 +747,6 @@
    <h2 class="fade-up">ご案内</h2>
    <div class="flourish fade-up">
     <span class="line"></span>
-    <!-- 線画のみの繊細な蝶々 -->
     <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
      <path d="M50 36 C35 12, 10 18, 14 36 C18 46, 38 42, 50 36 Z" stroke="#c9a668" stroke-width="1.2"/>
      <path d="M50 36 C65 12, 90 18, 86 36 C82 46, 62 42, 50 36 Z" stroke="#c9a668" stroke-width="1.2"/>
@@ -766,7 +766,7 @@
     <div>
      <p class="kicker en">by message</p>
      <h3>カードメッセージ</h3>
-     <p class="desc">しっかりとご相談内容をヒアリング。<br>メッセージで対話を進めていきます。<br>忙しい方や時間がとれない時に。</p>
+     <p class="desc">ご相談内容をヒアリング。<br>メッセージで対話を進めます。<br>忙しい方や時間の取れない時に。</p>
     </div>
     <div class="price-block">
      <svg class="butterfly-icon" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -785,7 +785,7 @@
     <div>
      <p class="kicker en">60 min / zoom</p>
      <h3>星とカードの<br>対話セッション</h3>
-     <p class="desc">今、気になっていること1テーマ。<br>違和感やモヤモヤを吐き出したい、<br>気軽にお話を体験してみたい時に。</p>
+     <p class="desc">気になっていること1テーマ。<br>違和感やモヤモヤを吐き出したい、<br>気軽にお話を体験したい時に。</p>
     </div>
     <div class="price-block">
      <svg class="butterfly-icon" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -823,7 +823,7 @@
     <div>
      <p class="kicker en">120 min / zoom</p>
      <h3>星とカードの<br>対話セッション</h3>
-     <p class="desc">いくつかのテーマをじっくり対話。<br>ゆったりとあなたのペースで進め、<br>内側の声に深く耳を傾けてみたい時に。</p>
+     <p class="desc">いくつかのテーマをじっくり対話。<br>ゆったりとあなたのペースで進め、<br>内側の声に深く耳を傾けて<br>みたい時に。</p>
     </div>
     <div class="price-block">
      <svg class="butterfly-icon" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
