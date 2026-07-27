@@ -117,100 +117,40 @@
   background:inherit;
  }
 
+ /* --- ヒーローセクション --- */
  .hero{
-  min-height:100vh;
-  background:
-   url("hero.png") center center / cover no-repeat,
-   linear-gradient(180deg, var(--night-deep) 0%, var(--night-mid) 60%, var(--night-soft) 100%);
-  color:var(--cream);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-end;
-  text-align:center;
-  padding:0 24px 60px;
-  overflow:hidden;
- }
- /* 画像自体に見出し文字が入っているため、HTML側の重複テキストは非表示 */
- .hero-moon, .hero h1, .hero .sub, .hero .tagline{ display:none; }
- .stars{ position:absolute; inset:0; z-index:0; }
- .stars span{
-  position:absolute;
-  width:2px; height:2px;
-  background:#fff;
-  border-radius:50%;
-  animation:twinkle 4s ease-in-out infinite;
-  opacity:.6;
- }
- @keyframes twinkle{
-  0%,100%{ opacity:.2; }
-  50%{ opacity:1; }
- }
- .hero-moon{
-  width:96px; height:96px;
-  border-radius:50%;
-  background:var(--gold-soft);
-  box-shadow:0 0 60px rgba(226,205,154,.45), 0 0 120px rgba(226,205,154,.15);
-  position:relative;
-  margin-bottom:34px;
-  z-index:1;
- }
- .hero-moon::after{
-  content:'';
-  position:absolute; top:-6px; left:20px;
-  width:100%; height:100%;
-  border-radius:50%;
+  width:100%;
   background:var(--night-deep);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
  }
- .hero-badge{
+ .hero-img-wrap {
+  width:100%;
+  max-width:1200px;
+  margin:0 auto;
+  position:relative;
   z-index:1;
-  display:inline-block;
-  padding:9px 26px;
-  border:1px solid var(--gold);
-  border-radius:999px;
-  font-size:.78rem;
-  letter-spacing:.3em;
-  color:var(--gold-soft);
-  margin-bottom:30px;
  }
- .hero h1{
-  z-index:1;
-  font-size:clamp(2.1rem, 6vw, 3.6rem);
-  font-weight:600;
-  line-height:1.55;
-  margin-bottom:18px;
+ .hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
  }
- .hero h1 small{
-  display:block;
-  font-family:'Cormorant Garamond', serif;
-  font-size:.4em;
-  letter-spacing:.3em;
-  color:var(--gold-soft);
-  font-weight:400;
-  margin-bottom:12px;
- }
- .hero .sub{
-  z-index:1;
-  font-family:'Cormorant Garamond', serif;
-  font-style:italic;
-  font-size:1.15rem;
-  color:var(--rose);
-  margin-bottom:26px;
-  letter-spacing:.08em;
- }
- .hero .tagline{
-  z-index:1;
-  font-size:1.05rem;
-  color:var(--cream-dim);
-  max-width:26em;
+ .scroll-cue-wrap {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
  }
  .scroll-cue{
-  z-index:1;
-  margin-top:56px;
   font-size:.68rem;
   letter-spacing:.3em;
   color:var(--gold-soft);
-  opacity:.7;
+  opacity:.8;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -264,17 +204,8 @@
   color:var(--cream-dim);
   font-size:.98rem;
  }
- .about .note{
-  margin-top:36px;
-  display:inline-block;
-  border:1px solid rgba(226,205,154,.4);
-  border-radius:14px;
-  padding:18px 26px;
-  font-size:.85rem;
-  color:var(--gold-soft);
- }
 
- /* --- MENU SECTION：昭和レトロ・白銀比の紙質を差し込む --- */
+ /* --- MENU SECTION --- */
  .menu{
   background:
    repeating-linear-gradient(0deg, rgba(70,54,89,.015) 0px, rgba(70,54,89,.015) 1px, transparent 1px, transparent 3px),
@@ -282,7 +213,6 @@
   padding:110px 0 100px;
   position:relative;
  }
- /* 粒状のフィルム粒子（うるさくならない程度に極薄） */
  .menu::before{
   content:'';
   position:absolute; inset:0;
@@ -292,23 +222,28 @@
  }
  .menu-head{ text-align:center; margin-bottom:70px; position:relative; z-index:1; }
  .menu-head .eyebrow{ color:var(--rose-deep); margin-bottom:16px; }
- .menu-head h2{ font-size:clamp(1.5rem,3.6vw,2.2rem); color:var(--plum); }
+ .menu-head h2{ 
+  font-family:'Shippori Mincho', serif;
+  font-size:clamp(1.6rem,3.8vw,2.4rem); 
+  color:var(--ink);
+  letter-spacing:.08em;
+ }
 
- /* ヒーロー画像にあった、唐草×蝶々のアンティーク調フローリッシュ */
+ /* 右側イラスト調のシンプルな線だけの細い蝶々 */
  .flourish{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:14px;
-  margin:22px auto 0;
-  max-width:360px;
+  gap:16px;
+  margin:20px auto 0;
+  max-width:320px;
  }
  .flourish .line{
   flex:1;
   height:1px;
   background:linear-gradient(90deg, transparent, var(--gold), transparent);
  }
- .flourish svg{ width:30px; height:24px; flex:none; opacity:.85; }
+ .flourish svg{ width:38px; height:28px; flex:none; opacity:.8; }
   
  .card-grid{
   display:grid;
@@ -321,13 +256,12 @@
  }
   
  .tarot-card{
-  background:
-   linear-gradient(170deg, #fbf7ec, var(--cream-dim));
-  border:1px solid rgba(201,166,104,.55);
-  outline:1px solid rgba(201,166,104,.22);
+  background:linear-gradient(170deg, #fdfbf7, var(--cream-dim));
+  border:1px solid rgba(201,166,104,.45);
+  outline:1px solid rgba(201,166,104,.18);
   outline-offset:-6px;
   border-radius:4px;
-  padding:30px 18px 24px;
+  padding:32px 20px 26px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -335,10 +269,9 @@
   text-align:center;
   min-height:490px;
   position:relative;
-  box-shadow:0 6px 16px rgba(70,54,89,.06), inset 0 0 0 1px rgba(255,255,255,.4);
+  box-shadow:0 6px 16px rgba(70,54,89,.05), inset 0 0 0 1px rgba(255,255,255,.5);
   transition:transform .3s ease, box-shadow .3s ease;
  }
- /* 昭和写真のコーナーマーク */
  .tarot-card::before, .tarot-card::after{
   content:'';
   position:absolute;
@@ -355,7 +288,6 @@
   border-bottom:1px solid var(--gold);
   border-right:1px solid var(--gold);
  }
- /* PC用の上品な浮き上がりホバー効果 */
  .tarot-card:hover, .tarot-card:focus-within{
   transform:translateY(-6px);
   box-shadow:0 12px 28px rgba(70,54,89,.1);
@@ -364,72 +296,73 @@
  .tarot-card .kicker{
   font-family:'Cormorant Garamond', serif;
   letter-spacing:.25em;
-  font-size:.7rem;
-  color:var(--rose-deep);
-  margin-bottom:10px;
+  font-size:.78rem;
+  color:var(--gold);
+  margin-bottom:12px;
+  text-transform:uppercase;
  }
   
  .tarot-card h3{ 
-  font-size:1.15rem; 
-  margin-bottom:14px; 
-  color:var(--plum);
-  line-height:1.45;
-  word-break:normal;
-  overflow-wrap:normal;
+  font-family:'Shippori Mincho', serif;
+  font-size:1.2rem; 
+  margin-bottom:16px; 
+  color:var(--ink);
+  line-height:1.5;
+  font-weight:600;
+  letter-spacing:.03em;
  }
   
  .tarot-card .desc{ 
+  font-family:'Zen Kaku Gothic New', sans-serif;
   font-size:.85rem; 
   color:var(--ink); 
-  opacity:.8; 
+  opacity:.85; 
   margin-bottom:20px; 
-  line-height:1.7;
-  text-align:left;
+  line-height:1.85;
+  text-align:center;
   word-break:normal;
   overflow-wrap:break-word;
  }
   
  .price-block{
   margin-top:auto;
-  padding-top:22px;
-  border-top:1px solid rgba(70, 54, 89, 0.1);
+  padding-top:20px;
+  border-top:1px dashed rgba(201,166,104,.35);
   width:100%;
   text-align:center;
   position:relative;
  }
- .price-block::before{
-  content:'';
-  position:absolute;
-  top:-9px; left:50%;
-  transform:translateX(-50%);
-  width:18px; height:14px;
-  background-color:var(--gold);
-  -webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80'><path d='M50 20 C 30 -5, 0 5, 5 30 C 8 48, 30 45, 50 30' stroke='black' stroke-width='6' fill='none'/><path d='M50 20 C 70 -5, 100 5, 95 30 C 92 48, 70 45, 50 30' stroke='black' stroke-width='6' fill='none'/><path d='M50 30 C 35 45, 15 55, 20 70 C 25 78, 40 70, 50 55' stroke='black' stroke-width='5' fill='none'/><path d='M50 30 C 65 45, 85 55, 80 70 C 75 78, 60 70, 50 55' stroke='black' stroke-width='5' fill='none'/></svg>");
-  mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80'><path d='M50 20 C 30 -5, 0 5, 5 30 C 8 48, 30 45, 50 30' stroke='black' stroke-width='6' fill='none'/><path d='M50 20 C 70 -5, 100 5, 95 30 C 92 48, 70 45, 50 30' stroke='black' stroke-width='6' fill='none'/><path d='M50 30 C 35 45, 15 55, 20 70 C 25 78, 40 70, 50 55' stroke='black' stroke-width='5' fill='none'/><path d='M50 30 C 65 45, 85 55, 80 70 C 75 78, 60 70, 50 55' stroke='black' stroke-width='5' fill='none'/></svg>");
-  -webkit-mask-size:contain; mask-size:contain;
-  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
-  opacity:.8;
+
+ /* 線画の蝶々アイコン（カード内） */
+ .butterfly-icon {
+  width: 20px;
+  height: 16px;
+  margin: 0 auto 8px;
+  display: block;
+  opacity: .75;
  }
+
  .price-block .duration{
-  font-family:'Zen Kaku Gothic New', sans-serif;
-  letter-spacing:.05em;
-  font-size:1.05rem;
-  font-weight:700;
-  color:var(--plum);
+  font-family:'Shippori Mincho', serif;
+  letter-spacing:.06em;
+  font-size:.95rem;
+  color:var(--ink);
   margin-bottom:4px;
  }
  .price-block .now{
   font-family:'Cormorant Garamond', serif;
-  font-size:2rem;
+  font-size:2.1rem;
   color:var(--rose-deep);
-  font-weight:700;
-  line-height:1.2;
+  font-weight:600;
+  line-height:1.1;
+  letter-spacing:.02em;
  }
  .price-block .now span{ 
-  font-family:'Zen Kaku Gothic New', sans-serif;
-  font-size:.95rem; 
-  font-weight:500;
-  margin-left:2px;
+  font-family:'Shippori Mincho', serif;
+  font-size:.85rem; 
+  font-weight:400;
+  margin-left:3px;
+  color:var(--ink);
  }
 
  .checklist{
@@ -526,8 +459,8 @@
   overflow:hidden;
  }
  .butterfly{
-  width:64px; height:64px;
-  margin:0 auto 30px;
+  width:54px; height:54px;
+  margin:0 auto 24px;
   opacity:0;
   transform:scale(.6);
   transition:opacity 1.2s ease, transform 1.2s ease;
@@ -559,14 +492,6 @@
   transition:transform .3s ease, box-shadow .3s ease;
  }
  .cta-btn:hover{ transform:translateY(-3px); box-shadow:0 14px 36px rgba(214,154,171,.45); }
- .closing .handle{
-  display:block;
-  margin-top:20px;
-  font-family:'Cormorant Garamond', serif;
-  letter-spacing:.2em;
-  color:var(--gold-soft);
-  font-size:.85rem;
- }
  footer{
   text-align:center;
   padding:34px 24px;
@@ -611,30 +536,6 @@
   margin: 28px auto;
   height: 36px;
  }
- .hero {
-  padding: 70px 20px 40px;
- }
- .hero-moon {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 24px;
- }
- .hero h1 {
-  font-size: 1.8rem;
-  margin-bottom: 12px;
- }
- .hero h1 small {
-  font-size: 0.45em;
-  margin-bottom: 8px;
- }
- .hero .sub {
-  font-size: 1rem;
-  margin-bottom: 20px;
- }
- .hero .tagline {
-  font-size: 0.9rem;
-  max-width: 100%;
- }
  .empathy {
   padding: 80px 0 60px;
   text-align: center;
@@ -657,12 +558,6 @@
   font-size: 1.3rem;
   margin-bottom: 20px;
  }
- .about .note {
-  margin-top: 28px;
-  padding: 14px 20px;
-  font-size: 0.8rem;
-  border-radius: 10px;
- }
  .menu {
   padding: 80px 0 70px;
  }
@@ -673,7 +568,6 @@
   font-size: 1.5rem;
  }
   
- /* スマホ時は綺麗に中央1列並び・左右余白を均等に保持 */
  .card-grid {
   grid-template-columns: 1fr;
   gap: 24px;
@@ -684,22 +578,22 @@
   min-height: 370px;
  }
  .tarot-card:hover {
-  transform: none; /* スマホでの誤タップ時の挙動防止 */
+  transform: none;
  }
  .tarot-card .desc {
   font-size: 0.82rem;
   margin-bottom: 14px;
-  line-height: 1.8;
+  line-height: 1.85;
   text-align: center;
  }
  .price-block .duration {
-  font-size: 1rem;
+  font-size: .9rem;
  }
  .price-block .now {
-  font-size: 1.75rem;
+  font-size: 1.85rem;
  }
  .price-block .now span {
-  font-size: 0.88rem;
+  font-size: 0.8rem;
  }
   
  .checklist {
@@ -760,7 +654,7 @@
  }
  .profile .role-en {
   margin-bottom: 16px;
- }
+ me }
  .profile p {
   font-size: 0.88rem;
   text-align: center;
@@ -808,16 +702,14 @@
 
 <section class="hero" id="hero">
  <div class="stars" id="starField"></div>
- <div class="hero-moon"></div>
- <h1>
-  <small class="en">nako's card session</small>
-  変容を楽しむ<br>カードセッション
- </h1>
- <p class="sub en">〜 まどろみの麓 〜</p>
- <p class="tagline">変容の途中にいるあなたへ。</p>
- <div class="scroll-cue">
-  <span class="line"></span>
-  scroll
+ <div class="hero-img-wrap">
+  <img src="hero.png" alt="変容を楽しむカードセッション 〜まどろみの麓〜" class="hero-img">
+  <div class="scroll-cue-wrap">
+   <div class="scroll-cue">
+    <span class="line"></span>
+    scroll
+   </div>
+  </div>
  </div>
 </section>
 
@@ -844,7 +736,7 @@
   <p class="eyebrow en fade-up">what this is</p>
   <h2 class="fade-up">カードと星の視点から<br>言葉にならない想いを見つめる</h2>
   <p class="fade-up">あなただけの出生情報からも<br>傾向やテーマを探る。</p>
-   </div>
+ </div>
 </section>
 
 <section class="menu">
@@ -854,11 +746,15 @@
    <h2 class="fade-up">ご案内</h2>
    <div class="flourish fade-up">
     <span class="line"></span>
+    <!-- 線画のみの繊細な蝶々 -->
     <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-     <path d="M50 20 C 30 -5, 0 5, 5 30 C 8 48, 30 45, 50 30" stroke="#c9a668" stroke-width="4"/>
-     <path d="M50 20 C 70 -5, 100 5, 95 30 C 92 48, 70 45, 50 30" stroke="#c9a668" stroke-width="4"/>
-     <path d="M50 30 C 35 45, 15 55, 20 70 C 25 78, 40 70, 50 55" stroke="#c9a668" stroke-width="3"/>
-     <path d="M50 30 C 65 45, 85 55, 80 70 C 75 78, 60 70, 50 55" stroke="#c9a668" stroke-width="3"/>
+     <path d="M50 36 C35 12, 10 18, 14 36 C18 46, 38 42, 50 36 Z" stroke="#c9a668" stroke-width="1.2"/>
+     <path d="M50 36 C65 12, 90 18, 86 36 C82 46, 62 42, 50 36 Z" stroke="#c9a668" stroke-width="1.2"/>
+     <path d="M50 38 C38 48, 24 58, 28 66 C32 72, 44 64, 50 52 Z" stroke="#c9a668" stroke-width="1.1"/>
+     <path d="M50 38 C62 48, 76 58, 72 66 C68 72, 56 64, 50 52 Z" stroke="#c9a668" stroke-width="1.1"/>
+     <path d="M50 20 L50 56" stroke="#c9a668" stroke-width="1"/>
+     <path d="M50 22 C44 14, 40 10, 36 8" stroke="#c9a668" stroke-width="1"/>
+     <path d="M50 22 C56 14, 60 10, 64 8" stroke="#c9a668" stroke-width="1"/>
     </svg>
     <span class="line"></span>
    </div>
@@ -870,9 +766,15 @@
     <div>
      <p class="kicker en">by message</p>
      <h3>カードメッセージ</h3>
-     <p class="desc">しっかりとご相談内容をヒヤリング<br>メッセージで対話を進めていきます。<br>忙しい方や時間がとれない時に
+     <p class="desc">しっかりとご相談内容をヒアリング。<br>メッセージで対話を進めていきます。<br>忙しい方や時間がとれない時に。</p>
     </div>
     <div class="price-block">
+     <svg class="butterfly-icon" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 36 C35 12, 10 18, 14 36 C18 46, 38 42, 50 36 Z" stroke="#c9a668" stroke-width="1.3"/>
+      <path d="M50 36 C65 12, 90 18, 86 36 C82 46, 62 42, 50 36 Z" stroke="#c9a668" stroke-width="1.3"/>
+      <path d="M50 38 C38 48, 24 58, 28 66 C32 72, 44 64, 50 52 Z" stroke="#c9a668" stroke-width="1.2"/>
+      <path d="M50 38 C62 48, 76 58, 72 66 C68 72, 56 64, 50 52 Z" stroke="#c9a668" stroke-width="1.2"/>
+     </svg>
      <div class="duration">DMテキスト対話</div>
      <div class="now">4,000<span>円</span></div>
     </div>
@@ -881,11 +783,17 @@
    <!-- 2つ目のメニュー -->
    <div class="tarot-card fade-up" tabindex="0">
     <div>
-     <p class="kicker en">60 minutes / zoom</p>
+     <p class="kicker en">60 min / zoom</p>
      <h3>星とカードの<br>対話セッション</h3>
-     <p class="desc">今、気になっていること1テーマ<br>違和感やモヤモヤを吐き出したい<br>気軽にお話を体験してみたい時に。</p>
+     <p class="desc">今、気になっていること1テーマ。<br>違和感やモヤモヤを吐き出したい、<br>気軽にお話を体験してみたい時に。</p>
     </div>
     <div class="price-block">
+     <svg class="butterfly-icon" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 36 C35 12, 10 18, 14 36 C18 46, 38 42, 50 36 Z" stroke="#c9a668" stroke-width="1.3"/>
+      <path d="M50 36 C65 12, 90 18, 86 36 C82 46, 62 42, 50 36 Z" stroke="#c9a668" stroke-width="1.3"/>
+      <path d="M50 38 C38 48, 24 58, 28 66 C32 72, 44 64, 50 52 Z" stroke="#c9a668" stroke-width="1.2"/>
+      <path d="M50 38 C62 48, 76 58, 72 66 C68 72, 56 64, 50 52 Z" stroke="#c9a668" stroke-width="1.2"/>
+     </svg>
      <div class="duration">60分</div>
      <div class="now">8,000<span>円</span></div>
     </div>
@@ -894,11 +802,17 @@
    <!-- 3つ目のメニュー -->
    <div class="tarot-card fade-up" tabindex="0">
     <div>
-     <p class="kicker en">90 minutes / zoom</p>
+     <p class="kicker en">90 min / zoom</p>
      <h3>星とカードの<br>対話セッション</h3>
-    <p class="desc">なんとなくの違和感やお悩み<br>モヤモヤの奥を一緒に探る心<br>今の心地よい流れの先を<br>見つけたい時に。</p>
+     <p class="desc">なんとなくの違和感やお悩み。<br>モヤモヤの奥を一緒に探り、<br>今の心地よい流れの先を<br>見つけたい時に。</p>
     </div> 
-     <div class="price-block">
+    <div class="price-block">
+     <svg class="butterfly-icon" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 36 C35 12, 10 18, 14 36 C18 46, 38 42, 50 36 Z" stroke="#c9a668" stroke-width="1.3"/>
+      <path d="M50 36 C65 12, 90 18, 86 36 C82 46, 62 42, 50 36 Z" stroke="#c9a668" stroke-width="1.3"/>
+      <path d="M50 38 C38 48, 24 58, 28 66 C32 72, 44 64, 50 52 Z" stroke="#c9a668" stroke-width="1.2"/>
+      <path d="M50 38 C62 48, 76 58, 72 66 C68 72, 56 64, 50 52 Z" stroke="#c9a668" stroke-width="1.2"/>
+     </svg>
      <div class="duration">90分</div>
      <div class="now">12,000<span>円</span></div>
     </div>
@@ -907,11 +821,17 @@
    <!-- 4つ目のメニュー -->
    <div class="tarot-card fade-up" tabindex="0">
     <div>
-     <p class="kicker en">120 minutes / zoom</p>
+     <p class="kicker en">120 min / zoom</p>
      <h3>星とカードの<br>対話セッション</h3>
-     <p class="desc">いくつかのテーマをじっくりと対話。<br>ゆったりとした時間を<br>あなたのペースで進める<br>内側の声に深く耳を傾けてみたい時に。</p>
+     <p class="desc">いくつかのテーマをじっくり対話。<br>ゆったりとあなたのペースで進め、<br>内側の声に深く耳を傾けてみたい時に。</p>
     </div>
     <div class="price-block">
+     <svg class="butterfly-icon" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 36 C35 12, 10 18, 14 36 C18 46, 38 42, 50 36 Z" stroke="#c9a668" stroke-width="1.3"/>
+      <path d="M50 36 C65 12, 90 18, 86 36 C82 46, 62 42, 50 36 Z" stroke="#c9a668" stroke-width="1.3"/>
+      <path d="M50 38 C38 48, 24 58, 28 66 C32 72, 44 64, 50 52 Z" stroke="#c9a668" stroke-width="1.2"/>
+      <path d="M50 38 C62 48, 76 58, 72 66 C68 72, 56 64, 50 52 Z" stroke="#c9a668" stroke-width="1.2"/>
+     </svg>
      <div class="duration">120分</div>
      <div class="now">14,000<span>円</span></div>
     </div>
@@ -951,12 +871,12 @@
   <div class="fade-up">
    <h2>nako <span class="en" style="font-size:.6em; color:var(--gold-soft);">profile</span></h2>
    <span class="role-en en">reflexologist · reiki healer</span>
-   <p>ジブリ・心理学・マニアックな話が好き。<br>言葉にならないモヤモヤ<br>静かな沈黙の時間もそのまま温かく包み込むような場を大切にしています。<br>友達以上家族未満の従姉妹のような距離感<br>　ふと思い出した時にいつでもそばに…</p>
+   <p>ジブリ・心理学・マニアックな話が好き。<br>言葉にならないモヤモヤ<br>静かな沈黙の時間もそのまま温かく包み込むような場を大切にしています。<br>友達以上家族未満の従姉妹のような距離感<br> ふと思い出した時にいつでもそばに…</p>
    <div class="tags">
     <span>リフレクソロジスト</span>
     <span>レイキ</span>
     <span>場づくり</span>
-  <span>西洋占星術</span>
+    <span>西洋占星術</span>
     <span>カードリーディング</span>
    </div>
   </div>
@@ -965,11 +885,11 @@
 
 <section class="closing">
  <svg class="butterfly" id="butterfly" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M50 20 C 30 -5, 0 5, 5 30 C 8 48, 30 45, 50 30" stroke="#d69aab" stroke-width="1.3"/>
-  <path d="M50 20 C 70 -5, 100 5, 95 30 C 92 48, 70 45, 50 30" stroke="#c9a668" stroke-width="1.3"/>
-  <path d="M50 30 C 35 45, 15 55, 20 70 C 25 78, 40 70, 50 55" stroke="#d69aab" stroke-width="1"/>
-  <path d="M50 30 C 65 45, 85 55, 80 70 C 75 78, 60 70, 50 55" stroke="#c9a668" stroke-width="1"/>
-  <line x1="50" y1="18" x2="50" y2="58" stroke="#f6f0e2" stroke-width="1.2"/>
+  <path d="M50 36 C35 12, 10 18, 14 36 C18 46, 38 42, 50 36 Z" stroke="#c9a668" stroke-width="1.2"/>
+  <path d="M50 36 C65 12, 90 18, 86 36 C82 46, 62 42, 50 36 Z" stroke="#c9a668" stroke-width="1.2"/>
+  <path d="M50 38 C38 48, 24 58, 28 66 C32 72, 44 64, 50 52 Z" stroke="#c9a668" stroke-width="1.1"/>
+  <path d="M50 38 C62 48, 76 58, 72 66 C68 72, 56 64, 50 52 Z" stroke="#c9a668" stroke-width="1.1"/>
+  <path d="M50 20 L50 56" stroke="#c9a668" stroke-width="1"/>
  </svg>
  <p class="quote fade-up">あなたの中にある物語に光を灯す<br>時間を一緒に楽しめたら嬉しいです。</p>
  <a href="https://www.instagram.com/nako4108?igsh=NzcyNH16Z3Q5NWto" class="cta-btn fade-up" target="_blank" rel="noopener">
